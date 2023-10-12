@@ -1,0 +1,24 @@
+<div class="pt-44 pb-3 h-full box-border">
+    <header class="w-full fixed top-0">
+        <img src="../../assets/logo/logo.png" alt="Imagem" class="mx-auto max-w-sm" />
+    </header>
+    <div class="h-full flex">
+        <aside class="bg-gray-100 w-72 p-4 m-1 h-full overflow-auto mt-2 rounded-md max-height">
+            <mat-list>
+                <mat-list-item><a [routerLink]="['list']">Lista de veículos</a></mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item><a [routerLink]="['add']">Cadastro de veículos</a></mat-list-item>
+                <mat-divider></mat-divider> 
+                <mat-list-item><a [routerLink]="['add']">Cadastro de marcas</a></mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item><a [routerLink]="['add']">Cadastro de Categorias</a></mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item><a [routerLink]="['add']">Cadastro de Contato</a></mat-list-item>
+                <mat-divider></mat-divider>
+            </mat-list>
+        </aside>
+        <main class="w-full rounded-md overflow-auto h-full mt-2">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>
