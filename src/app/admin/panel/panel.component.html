@@ -5,15 +5,15 @@
     <div class="h-full flex">
         <aside class="bg-gray-100 w-72 p-4 m-1 h-full overflow-auto mt-2 rounded-md max-height">
             <mat-list>
-                <mat-list-item><a [routerLink]="['list']">Lista de veículos</a></mat-list-item>
+                <mat-list-item><a [routerLink]="['lista']">Lista de veículos</a></mat-list-item>
                 <mat-divider></mat-divider>
-                <mat-list-item><a [routerLink]="['add']">Cadastro de veículos</a></mat-list-item>
-                <mat-divider></mat-divider> 
-                <mat-list-item><a [routerLink]="['add']">Cadastro de marcas</a></mat-list-item>
+                <mat-list-item><a [routerLink]="['adicionar', 'veiculos']">Cadastro de veículos</a></mat-list-item>
                 <mat-divider></mat-divider>
-                <mat-list-item><a [routerLink]="['add']">Cadastro de Categorias</a></mat-list-item>
+                <mat-list-item><a [routerLink]="['adicionar', 'marcas']">Cadastro de marcas</a></mat-list-item>
                 <mat-divider></mat-divider>
-                <mat-list-item><a [routerLink]="['add']">Cadastro de Contato</a></mat-list-item>
+                <mat-list-item><a [routerLink]="['adicionar', 'categorias']">Cadastro de Categorias</a></mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item><a [routerLink]="['adicionar', 'contato']">Cadastro de Contato</a></mat-list-item>
                 <mat-divider></mat-divider>
             </mat-list>
         </aside>

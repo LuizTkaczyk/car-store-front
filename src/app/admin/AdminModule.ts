@@ -7,6 +7,10 @@ import { AngularMaterialModule } from '../shared/angular-material.module';
 import { RouterModule } from '@angular/router';
 import { PanelComponent } from './panel/panel.component';
 import { ListComponent } from './list/list.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+
+
 
 @NgModule({
   declarations: [
@@ -19,7 +23,14 @@ import { ListComponent } from './list/list.component';
   imports: [
     CommonModule,
     AngularMaterialModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    NgxMaskDirective,
+    NgxMaskPipe
+  ],
+  providers: [
+    provideNgxMask()
   ]
 })
-export class AdminModule { }
+export class AdminModule {
+}
