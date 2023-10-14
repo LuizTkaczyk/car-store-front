@@ -18,9 +18,9 @@ const routes: Routes = [
 
   { path: 'login', component: LoginComponent},
   { path: 'admin', component: PanelComponent, children: [
-    { path: 'list', component: ListComponent },
-    { path: 'edit/:id', component: EditComponent },
-    { path: 'add', component: AddComponent },
+    { path: 'lista', component: ListComponent },
+    { path: 'editar/:type/:id', component: EditComponent },
+    { path: 'adicionar/:type', component: AddComponent },
   ]},
   { path: '**', redirectTo: '/home' }
 ];
