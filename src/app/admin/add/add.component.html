@@ -1,75 +1,90 @@
 <form [formGroup]="form">
   <!-- veiculos -->
-  <div *ngIf="activeRoute == 'veiculos'" class="m-auto flex justify-center pt-20">
+  <div *ngIf="activeRoute == 'veiculos'" class="m-auto flex justify-center pt-4">
     <mat-card class="w-2/4">
       <mat-card-content>
-        <mat-form-field>
-          <mat-label>Marca</mat-label>
-          <mat-select formControlName="brand">
-            <mat-option value="1">Fiat</mat-option>
-            <mat-option value="2">Chevrolet</mat-option>
-          </mat-select>
-          <mat-error *ngIf="form.get('brand').hasError('required')">A marca é obrigatória</mat-error>
-        </mat-form-field>
 
         <mat-form-field class="w-full">
           <mat-label>Modelo</mat-label>
           <input matInput formControlName="model" />
           <mat-error *ngIf="form.get('model').hasError('required')">O modelo é obrigatório</mat-error>
-          <mat-error *ngIf="form.get('model').hasError('maxlength')">O modelo deve ter no máximo 30 caracteres</mat-error>
+          <mat-error *ngIf="form.get('model').hasError('maxlength')">O modelo deve ter no máximo 30
+            caracteres</mat-error>
         </mat-form-field>
 
-        <mat-form-field class="w-full">
-          <mat-label>Ano</mat-label>
-          <input type="number" matInput formControlName="year" />
-          <mat-error *ngIf="form.get('year').hasError('required') && form.get('year').touched">
-            O ano é obrigatório
-          </mat-error>
-          <mat-error
-            *ngIf="form.get('year').hasError('anoInvalido') && form.get('year').dirty && !form.get('year').hasError('required')">
-            O ano deve estar entre 1950 e {{ currentYear + 1 }}
-          </mat-error>
-        </mat-form-field>
+        <div class="flex">
+          <mat-form-field class="w-2/4 pr-4">
+            <mat-label>Marca</mat-label>
+            <mat-select formControlName="brand">
+              <mat-option value="1">Fiat</mat-option>
+              <mat-option value="2">Chevrolet</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('brand').hasError('required')">A marca é obrigatória</mat-error>
+          </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Categoria</mat-label>
-          <mat-select formControlName="category">
-            <mat-option value="1">Carro</mat-option>
-            <mat-option value="2">Moto</mat-option>
-          </mat-select>
-          <mat-error *ngIf="form.get('category').hasError('required')">A categoria é obrigatória</mat-error>
-        </mat-form-field>
+          <mat-form-field class="w-2/4">
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="category">
+              <mat-option value="1">Carro</mat-option>
+              <mat-option value="2">Moto</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('category').hasError('required')">A categoria é obrigatória</mat-error>
+          </mat-form-field>
+        </div>
 
-        <mat-form-field class="w-full">
-          <mat-label>Preço</mat-label>
-          <input matInput formControlName="price"  mask="separator.2" thousandSeparator="," />
-          <mat-error *ngIf="form.get('price').hasError('required')">O preço é obrigatório</mat-error>
-          <mat-error *ngIf="form.get('price').hasError('priceInvalido')">O preço deve estar entre 0 e 9.999.999,99</mat-error>
-        </mat-form-field>
+        <div class="flex">
+          <mat-form-field class="w-2/4 pr-4">
+            <mat-label>Ano</mat-label>
+            <input type="number" matInput formControlName="year" />
+            <mat-error *ngIf="form.get('year').hasError('required') && form.get('year').touched">
+              O ano é obrigatório
+            </mat-error>
+            <mat-error
+              *ngIf="form.get('year').hasError('anoInvalido') && form.get('year').dirty && !form.get('year').hasError('required')">
+              O ano deve estar entre 1950 e {{ currentYear + 1 }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-2/4">
+            <mat-label>Valor</mat-label>
+            <input matInput formControlName="price" mask="separator.2" thousandSeparator="," />
+            <mat-error *ngIf="form.get('price').hasError('required')">O preço é obrigatório</mat-error>
+            <mat-error *ngIf="form.get('price').hasError('priceInvalido')">O preço deve estar entre 0 e
+              9.999.999,99</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="flex">
+          <app-file-input (file)="getFiles($event)"></app-file-input>
+        </div>
+
       </mat-card-content>
 
       <mat-card-actions class="flex justify-center">
-        <button mat-raised-button color="primary" class="mr-4" (click)="save()" [disabled]="form.invalid">Salvar</button>
-        <button mat-raised-button color="warn">Limpar</button>
+        <button mat-raised-button color="primary" class="mr-4" (click)="save()"
+          [disabled]="form.invalid">Salvar</button>
+        <button mat-raised-button color="warn" [routerLink]="['/admin/lista']">Cancelar</button>
       </mat-card-actions>
     </mat-card>
   </div>
 
   <!-- marcas -->
-  <div *ngIf="activeRoute == 'marcas'" class="m-auto flex justify-center pt-20">
+  <div *ngIf="activeRoute == 'marcas'" class="m-auto flex justify-center pt-4">
     <mat-card class="w-2/4">
       <mat-card-content>
         <mat-form-field class="w-full">
           <mat-label>Marca</mat-label>
           <input matInput formControlName="brand" />
           <mat-error *ngIf="form.get('brand').hasError('required')">A marca é obrigatória</mat-error>
-          <mat-error *ngIf="form.get('brand').hasError('maxlength')">A marca deve ter no máximo 15 caracteres</mat-error>
+          <mat-error *ngIf="form.get('brand').hasError('maxlength')">A marca deve ter no máximo 15
+            caracteres</mat-error>
         </mat-form-field>
       </mat-card-content>
 
       <mat-card-actions class="flex justify-center">
-        <button mat-raised-button color="primary" class="mr-4" (click)="save()" [disabled]="form.invalid">Salvar</button>
-        <button mat-raised-button color="warn">Limpar</button>
+        <button mat-raised-button color="primary" class="mr-4" (click)="save()"
+          [disabled]="form.invalid">Salvar</button>
+        <button mat-raised-button color="warn" [routerLink]="['/admin/lista']">Cancelar</button>
       </mat-card-actions>
 
       <div class="mt-4 p-2">
@@ -82,7 +97,8 @@
           <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef class="center w-48">Editar</th>
             <td mat-cell *matCellDef="let element" class="center">
-              <a mat-raised-button color="primary" class="mr-2" [routerLink]="['/admin/editar', 'marca', element.id]">Editar</a>
+              <a mat-raised-button color="primary" class="mr-2"
+                [routerLink]="['/admin/editar', 'marca', element.id]">Editar</a>
               <button mat-raised-button color="warn">Exluir</button>
             </td>
           </ng-container>
@@ -95,19 +111,21 @@
   </div>
 
   <!-- categorias -->
-  <div *ngIf="activeRoute == 'categorias'" class="m-auto flex justify-center pt-20">
+  <div *ngIf="activeRoute == 'categorias'" class="m-auto flex justify-center pt-4">
     <mat-card class="w-2/4">
       <mat-card-content>
         <mat-form-field class="w-full">
           <mat-label>Categoria</mat-label>
           <input matInput formControlName="category" />
           <mat-error *ngIf="form.get('category').hasError('required')">A categoria é obrigatória</mat-error>
-          <mat-error *ngIf="form.get('category').hasError('maxlength')">A categoria deve ter no máximo 15 caracteres</mat-error>
+          <mat-error *ngIf="form.get('category').hasError('maxlength')">A categoria deve ter no máximo 15
+            caracteres</mat-error>
         </mat-form-field>
       </mat-card-content>
 
       <mat-card-actions class="flex justify-center">
-        <button mat-raised-button color="primary" class="mr-4" (click)="save()" [disabled]="form.invalid">Salvar</button>
+        <button mat-raised-button color="primary" class="mr-4" (click)="save()"
+          [disabled]="form.invalid">Salvar</button>
         <button mat-raised-button color="warn">Limpar</button>
       </mat-card-actions>
 
@@ -121,8 +139,9 @@
           <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef class="center w-48">Editar</th>
             <td mat-cell *matCellDef="let element" class="center">
-              <a mat-raised-button color="primary" class="mr-2" [routerLink]="['/admin/editar', 'categoria', element.id]">Editar</a>
-              <button mat-raised-button color="warn">Exluir</button>
+              <a mat-raised-button color="primary" class="mr-2"
+                [routerLink]="['/admin/editar', 'categoria', element.id]">Editar</a>
+              <button mat-raised-button color="warn" [routerLink]="['/admin/lista']">Cancelar</button>
             </td>
           </ng-container>
 
@@ -134,19 +153,90 @@
   </div>
 
   <!-- contato -->
-  <div *ngIf="activeRoute == 'contato'" class="m-auto flex justify-center pt-20">
+  <div *ngIf="activeRoute == 'informacoes'" class="m-auto flex justify-center pt-4">
     <mat-card class="w-2/4">
       <mat-card-content>
+
         <mat-form-field class="w-full">
-          <mat-label>Contato</mat-label>
-          <input matInput formControlName="contact" mask="(00) 000000000"  />
-          <mat-error *ngIf="form.get('contact').hasError('required')">O numero de telefone é obrigatório</mat-error>
+          <mat-label>Nome da empresa</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="form.get('name').hasError('required')">O nome é obrigatório</mat-error>
         </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <mat-label>Cnpj/Cpf</mat-label>
+          <input matInput formControlName="cnpj_cpf" mask="CPF_CNPJ" />
+        </mat-form-field>
+
+        <div class="w-full">
+          <mat-form-field class="w-2/3 pr-3">
+            <mat-label>Endereço</mat-label>
+            <input matInput formControlName="address" />
+            <mat-error *ngIf="form.get('address').hasError('required')">O endereço é obrigatório</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-1/3">
+            <mat-label>Número</mat-label>
+            <input matInput formControlName="number" />
+            <mat-error *ngIf="form.get('number').hasError('required')">O número é obrigatório</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="w-full">
+          <mat-form-field class="w-2/3 pr-3">
+            <mat-label>Cidade</mat-label>
+            <input matInput formControlName="city" />
+            <mat-error *ngIf="form.get('city').hasError('required')">A cidade é obrigatória</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-1/3">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="state">
+              <mat-option *ngFor="let state of states" [value]="state.id">
+                {{state.sigla}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div formArrayName="contact">
+          <div class="row" *ngFor="let email of form.get('contact').controls; let i = index" [formGroupName]="i">
+            <div class="flex">
+              <mat-form-field class="w-2/5 pr-3">
+                <mat-label>Contato</mat-label>
+                <input matInput formControlName="number" mask="(00) 0 0000-0000 || (00) 0000-0000">
+                <mat-error *ngIf="form.get('contact').controls[i].get('number').hasError('required')">O numero é
+                  obrigatório</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="w-2/5">
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="name">
+                <mat-error *ngIf="form.get('contact').controls[i].get('name').hasError('required')">O nome é
+                  obrigatório</mat-error>
+              </mat-form-field>
+
+              <div class="w-1/5 flex">
+                <button class="float-left" mat-icon-button color="primary" aria-label="Remove/clear"
+                  (click)="removeOrClearContact(i)" matTooltip="Remove">
+                  <mat-icon>highlight_off</mat-icon>
+                </button>
+                <button class="float-left" mat-icon-button color="primary" aria-label="Add"
+                  (click)="addContactFormGroup()" matTooltip="Add">
+                  <mat-icon>add_circle_outline</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <app-logo-input (logoOutput)="getFiles($event)"></app-logo-input>
+
       </mat-card-content>
 
       <mat-card-actions class="flex justify-center">
-        <button mat-raised-button color="primary" class="mr-4" (click)="save()" [disabled]="form.invalid">Salvar</button>
-        <button mat-raised-button color="warn">Limpar</button>
+        <button mat-raised-button color="primary" class="mr-4" (click)="save()"
+          [disabled]="form.invalid">Salvar</button>
+        <button mat-raised-button color="warn" [routerLink]="['/admin/lista']">Cancelar</button>
       </mat-card-actions>
     </mat-card>
   </div>
