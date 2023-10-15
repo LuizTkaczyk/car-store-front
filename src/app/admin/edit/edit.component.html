@@ -1,62 +1,75 @@
 <form [formGroup]="form">
   <!-- veiculos -->
-  <div *ngIf="activeRoute == 'veiculo'" class="m-auto flex justify-center pt-20">
+  <div *ngIf="activeRoute == 'veiculo'" class="m-auto flex justify-center pt-4">
     <mat-card class="w-2/4">
       <mat-card-content>
-        <mat-form-field>
-          <mat-label>Marca</mat-label>
-          <mat-select formControlName="brand">
-            <mat-option value="1">Fiat</mat-option>
-            <mat-option value="2">Chevrolet</mat-option>
-          </mat-select>
-          <mat-error *ngIf="form.get('brand').hasError('required')">A marca é obrigatória</mat-error>
-        </mat-form-field>
 
         <mat-form-field class="w-full">
           <mat-label>Modelo</mat-label>
           <input matInput formControlName="model" />
           <mat-error *ngIf="form.get('model').hasError('required')">O modelo é obrigatório</mat-error>
-          <mat-error *ngIf="form.get('model').hasError('maxlength')">O modelo deve ter no máximo 30 caracteres</mat-error>
+          <mat-error *ngIf="form.get('model').hasError('maxlength')">O modelo deve ter no máximo 30
+            caracteres</mat-error>
         </mat-form-field>
 
-        <mat-form-field class="w-full">
-          <mat-label>Ano</mat-label>
-          <input type="number" matInput formControlName="year" />
-          <mat-error *ngIf="form.get('year').hasError('required') && form.get('year').touched">
-            O ano é obrigatório
-          </mat-error>
-          <mat-error
-            *ngIf="form.get('year').hasError('anoInvalido') && form.get('year').dirty && !form.get('year').hasError('required')">
-            O ano deve estar entre 1950 e {{ currentYear + 1 }}
-          </mat-error>
-        </mat-form-field>
+        <div class="flex">
+          <mat-form-field class="w-2/4 pr-4">
+            <mat-label>Marca</mat-label>
+            <mat-select formControlName="brand">
+              <mat-option value="1">Fiat</mat-option>
+              <mat-option value="2">Chevrolet</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('brand').hasError('required')">A marca é obrigatória</mat-error>
+          </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Categoria</mat-label>
-          <mat-select formControlName="category">
-            <mat-option value="1">Carro</mat-option>
-            <mat-option value="2">Moto</mat-option>
-          </mat-select>
-          <mat-error *ngIf="form.get('category').hasError('required')">A categoria é obrigatória</mat-error>
-        </mat-form-field>
+          <mat-form-field class="w-2/4">
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="category">
+              <mat-option value="1">Carro</mat-option>
+              <mat-option value="2">Moto</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('category').hasError('required')">A categoria é obrigatória</mat-error>
+          </mat-form-field>
+        </div>
 
-        <mat-form-field class="w-full">
-          <mat-label>Preço</mat-label>
-          <input matInput formControlName="price"  mask="separator.2" thousandSeparator="," />
-          <mat-error *ngIf="form.get('price').hasError('required')">O preço é obrigatório</mat-error>
-          <mat-error *ngIf="form.get('price').hasError('priceInvalido')">O preço deve estar entre 0 e 9.999.999,99</mat-error>
-        </mat-form-field>
+        <div class="flex">
+          <mat-form-field class="w-2/4 pr-4">
+            <mat-label>Ano</mat-label>
+            <input type="number" matInput formControlName="year" />
+            <mat-error *ngIf="form.get('year').hasError('required') && form.get('year').touched">
+              O ano é obrigatório
+            </mat-error>
+            <mat-error
+              *ngIf="form.get('year').hasError('anoInvalido') && form.get('year').dirty && !form.get('year').hasError('required')">
+              O ano deve estar entre 1950 e {{ currentYear + 1 }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-2/4">
+            <mat-label>Valor</mat-label>
+            <input matInput formControlName="price" mask="separator.2" thousandSeparator="," />
+            <mat-error *ngIf="form.get('price').hasError('required')">O preço é obrigatório</mat-error>
+            <mat-error *ngIf="form.get('price').hasError('priceInvalido')">O preço deve estar entre 0 e
+              9.999.999,99</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="flex">
+          <app-file-input (file)="getFiles($event)" [inputFile]="form.get('files').value" ></app-file-input>
+        </div>
+
       </mat-card-content>
 
       <mat-card-actions class="flex justify-center">
-        <button mat-raised-button color="primary" class="mr-4" (click)="save()" [disabled]="form.invalid">Salvar</button>
+        <button mat-raised-button color="primary" class="mr-4" (click)="save()"
+          [disabled]="form.invalid">Salvar</button>
         <button mat-raised-button color="warn">Limpar</button>
       </mat-card-actions>
     </mat-card>
   </div>
   
   <!-- marcas -->
-  <div *ngIf="activeRoute == 'marca'" class="m-auto flex justify-center pt-20">
+  <div *ngIf="activeRoute == 'marca'" class="m-auto flex justify-center pt-4">
     <mat-card class="w-2/4">
       <mat-card-content>
         <mat-form-field class="w-full">
@@ -69,13 +82,13 @@
 
       <mat-card-actions class="flex justify-center">
         <button mat-raised-button color="primary" class="mr-4" (click)="save()" [disabled]="form.invalid">Salvar</button>
-        <button mat-raised-button color="warn">Limpar</button>
+        <button mat-raised-button color="warn" [routerLink]="['/admin/adicionar/marcas']">Voltar</button>
       </mat-card-actions>
     </mat-card>
   </div>
   
   <!-- categorias -->
-  <div *ngIf="activeRoute == 'categoria'" class="m-auto flex justify-center pt-20">
+  <div *ngIf="activeRoute == 'categoria'" class="m-auto flex justify-center pt-4">
     <mat-card class="w-2/4">
       <mat-card-content>
         <mat-form-field class="w-full">
@@ -88,13 +101,13 @@
 
       <mat-card-actions class="flex justify-center">
         <button mat-raised-button color="primary" class="mr-4" (click)="save()" [disabled]="form.invalid">Salvar</button>
-        <button mat-raised-button color="warn">Limpar</button>
+        <button mat-raised-button color="warn" [routerLink]="['/admin/adicionar/categorias']">Voltar</button>
       </mat-card-actions>
     </mat-card>
   </div>
   
-  <!-- contato -->
-  <div *ngIf="activeRoute == 'contato'" class="m-auto flex justify-center pt-20">
+  <!-- informacoes -->
+  <div *ngIf="activeRoute == 'informacoes'" class="m-auto flex justify-center pt-4">
     <mat-card class="w-2/4">
       <mat-card-content>
         <mat-form-field class="w-full">
