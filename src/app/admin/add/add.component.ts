@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { ModalComponent } from '../shared/modal/modal.component';
 
 @Component({
   selector: 'app-add',
@@ -209,7 +211,7 @@ export class AddComponent implements OnInit {
   ];
 
 
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,private detectorChanges: ChangeDetectorRef) {
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,public dialog: MatDialog) {
    }
 
   ngOnInit(): void {
@@ -319,8 +321,20 @@ export class AddComponent implements OnInit {
   resetForm() {
     this.form.reset();
     this.clearFiles = true;
-    this.detectorChanges.markForCheck();
+  }
 
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '300px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        console.log('exclui o item');
+      }
+    });
   }
 
   save() {
