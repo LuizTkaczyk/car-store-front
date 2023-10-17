@@ -31,7 +31,7 @@
         <a mat-raised-button color="primary" class="mr-2" [routerLink]="['/admin/editar', 'veiculo', element.id]"
           >Editar</a
         >
-        <button mat-raised-button color="warn">Exluir</button>
+        <button mat-raised-button color="warn" (click)="openDialog('100ms', '150ms')">Exluir</button>
       </td>
     </ng-container>
 

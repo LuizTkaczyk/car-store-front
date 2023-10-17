@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../shared/modal/modal.component';
 
 @Component({
   selector: 'app-list',
@@ -13,4 +15,20 @@ export class ListComponent {
     {id: 3,  brand: 'Volks', model: 'Golf',category: 'carro', year: 2002, price: 10000},
     {id: 4,  brand: 'Volvo', model: 'S60',category: 'carro', year: 2003,price: 10000}, 
   ];
+
+  constructor(public dialog: MatDialog) {}
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '300px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        console.log('exclui o item');
+      }
+    });
+  }
 }
