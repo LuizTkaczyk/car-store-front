@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddComponent } from './add/add.component';
@@ -12,7 +13,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { FileInputComponent } from './shared/file-input/file-input.component';
 import { LogoInputComponent } from './shared/logo-input/logo-input.component';
 import { ModalComponent } from './shared/modal/modal.component';
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -32,7 +33,9 @@ import { ModalComponent } from './shared/modal/modal.component';
     RouterModule,
     ReactiveFormsModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     provideNgxMask()

@@ -1,8 +1,14 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Component, OnInit} from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ModalComponent } from '../shared/modal/modal.component';
+import { ConnectionService } from 'src/app/shared/connection.service';
+import { Routes } from 'src/app/shared/constansts';
+import { Category } from '../model/category.model';
+import { Brand } from '../model/brand.model';
+import { MessageService } from '../shared/message.service';
 
 @Component({
   selector: 'app-add',
@@ -15,8 +21,10 @@ export class AddComponent implements OnInit {
   dataSource: Array<any> = [];
   displayedColumns: string[] = ['name', 'edit'];
   currentYear = new Date().getFullYear();
-  files : any;
-  clearFiles : Boolean = false;
+  files: any;
+  clearFiles: Boolean = false;
+  categories = new Observable<Category[]>();
+  brands = new Observable<Brand[]>();
 
   states = [
     {
@@ -211,11 +219,42 @@ export class AddComponent implements OnInit {
   ];
 
 
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,public dialog: MatDialog) {
-   }
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService) {
+  }
 
   ngOnInit(): void {
     this.getActiveRoute();
+
+    switch (this.activeRoute) {
+      case 'veiculos':
+        this.getCategories();
+        this.getBrands();
+        break;
+      case 'informacoes':
+
+        break;
+
+      case 'marcas':
+        this.getBrands();
+        break;
+
+      case 'categorias':
+        this.getCategories();
+        break;
+
+      default:
+        break;
+    }
+
+
+  }
+
+  getCategories() {
+    this.categories = this.connectionService.getAll(Routes.CATEGORY);
+  }
+
+  getBrands() {
+    this.brands = this.connectionService.getAll(Routes.BRAND);
   }
 
   getActiveRoute() {
@@ -228,40 +267,28 @@ export class AddComponent implements OnInit {
           this.form = this.formBuilder.group({
             brand: [null, [Validators.required, Validators.maxLength(15)]],
           });
-
-          this.dataSource = [
-            { id: 1, name: 'Fiat' },
-            { id: 2, name: 'Ford' },
-            { id: 3, name: 'Volks' }
-          ];
           break;
         case 'categorias':
           this.form = this.formBuilder.group({
             category: [null, [Validators.required, Validators.maxLength(15)]],
           });
-
-          this.dataSource = [
-            { id: 1, name: 'Carro' },
-            { id: 2, name: 'Moto' },
-            { id: 3, name: 'Caminhao' }
-          ];
           break;
         case 'veiculos':
           this.form = this.formBuilder.group({
-            brand: [null, Validators.required],
             model: [null, [Validators.required, Validators.maxLength(30)]],
+            brand_id: [null, Validators.required],
+            category_id: [null, Validators.required],
             year: [null, [Validators.required, this.anoValido]],
-            category: [null, Validators.required],
             price: [null, [Validators.required, this.validatePrice]],
-            files : null
+            files: null
           });
           break;
         case 'informacoes':
           this.form = this.formBuilder.group({
-            name: [null, [Validators.required, Validators.maxLength(15)]],
+            company_name: [null, [Validators.required, Validators.maxLength(15)]],
             cnpj_cpf: [null],
             address: [null, [Validators.required]],
-            number: [null, [Validators.required]],
+            address_number: [null, [Validators.required]],
             city: [null, [Validators.required]],
             state: [null, [Validators.required]],
             contact: this.formBuilder.array([this.createContactFormGroup()]),
@@ -314,7 +341,7 @@ export class AddComponent implements OnInit {
     }
   }
 
-  getFiles(event:any){
+  getFiles(event: any) {
     this.files = event;
   }
 
@@ -323,7 +350,7 @@ export class AddComponent implements OnInit {
     this.clearFiles = true;
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '300px',
       enterAnimationDuration,
@@ -331,20 +358,74 @@ export class AddComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        console.log('exclui o item');
+      if (result) {
+
+        switch (this.activeRoute) {
+          case 'marcas':
+            this.connectionService.delete(Routes.BRAND, id).subscribe(data => {
+              this.messageService.show('Marca excluída com sucesso', 'success');
+              this.getBrands();
+            }, error => {
+              this.messageService.show('Erro ao excluir marca', 'error');
+            })
+          break;
+
+          case 'categorias':
+            this.connectionService.delete(Routes.CATEGORY, id).subscribe(data => {
+              this.messageService.show('Categoria excluída com sucesso', 'success');
+              this.getCategories();
+            }, error => {
+              this.messageService.show('Erro ao excluir categoria', 'error');
+            })
+          break;
+        }
+
+
       }
     });
   }
 
   save() {
-    if(this.activeRoute === 'veiculos'){
-      this.form.get('files').setValue(this.files);
-    }
-    if(this.activeRoute === 'informacoes'){
-      this.form.get('logo').setValue(this.files);
+    switch (this.activeRoute) {
+      case 'veiculos':
+        this.form.get('files').setValue(this.files);
+        this.connectionService.post(Routes.VEHICLES, this.form.value).subscribe(data => {
+          console.log(data);
+        })
+        break;
+      case 'informacoes':
+        this.connectionService.post(Routes.INFORMATION, this.form.value).subscribe(data => {
+          console.log(data);
+        })
+        break;
+
+      case 'marcas':
+        this.connectionService.post(Routes.BRAND, this.form.value).subscribe(data => {
+          this.form.reset();
+          this.getBrands();
+          this.messageService.show('Marca cadastrada com sucesso', 'success');
+        }, error => {
+          this.messageService.show('Erro ao cadastrar marca', 'error');
+        })
+        break;
+
+      case 'categorias':
+        this.connectionService.post(Routes.CATEGORY, this.form.value).subscribe(data => {
+          this.form.reset();
+          this.getCategories();
+          this.messageService.show('Categoria cadastrada com sucesso', 'success');
+        }, error => {
+          this.messageService.show('Erro ao cadastrar categoria', 'error');
+        })
+        break;
+
+      default:
+        break;
     }
     console.log(this.form.value)
   }
+
+
+
 }
 
