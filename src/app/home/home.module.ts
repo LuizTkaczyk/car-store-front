@@ -8,6 +8,7 @@ import { HomeComponent } from './home.component';
 import { AngularMaterialModule } from '../shared/angular-material.module';
 import { ViewPostComponent } from './view-post/view-post.component';
 import { RouterModule } from '@angular/router';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     AngularMaterialModule,
     RouterModule,
+    SlickCarouselModule
   ],
 })
 export class HomeModule { }

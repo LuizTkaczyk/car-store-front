@@ -10,6 +10,16 @@ import { Routes } from 'src/app/shared/constansts';
 
 export class PostsComponent implements OnInit {
 
+
+  slides = [
+    {img: "http://placehold.it/350x150/000000"},
+    {img: "http://placehold.it/350x150/111111"},
+    {img: "http://placehold.it/350x150/666666"}
+  ];
+  posts : Array<any> = [];
+  slideConfig = {"slidesToShow": 1, "slidesToScroll": 1, "dots": true, "autoplay": true, "autoplaySpeed": 2000, "arrows": true};
+
+
   constructor(private service : ConnectionService ){}
   ngOnInit(): void {
     this.getPosts()
@@ -18,6 +28,7 @@ export class PostsComponent implements OnInit {
 
   getPosts(){
     return this.service.getAll(Routes.HOME).subscribe(data => {
+      this.posts = data;
       console.log(data);
     })
   }
