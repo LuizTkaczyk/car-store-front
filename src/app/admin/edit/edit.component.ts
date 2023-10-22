@@ -17,7 +17,7 @@ export class EditComponent implements OnInit {
   files: any;
   id: any;
 
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private connectionService: ConnectionService, private messageService: MessageService,private router: Router) { }
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private connectionService: ConnectionService, private messageService: MessageService, private router: Router) { }
 
   ngOnInit(): void {
     this.getActiveRoute();

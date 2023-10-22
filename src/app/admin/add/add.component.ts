@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalComponent } from '../shared/modal/modal.component';
 import { ConnectionService } from 'src/app/shared/connection.service';
 import { Routes } from 'src/app/shared/constansts';
@@ -219,7 +219,7 @@ export class AddComponent implements OnInit {
   ];
 
 
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService) {
+  constructor(private route: ActivatedRoute,private router: Router, private formBuilder: FormBuilder, public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -280,17 +280,17 @@ export class AddComponent implements OnInit {
             category_id: [null, Validators.required],
             year: [null, [Validators.required, this.anoValido]],
             price: [null, [Validators.required, this.validatePrice]],
-            files: null
+            images: null
           });
           break;
         case 'informacoes':
           this.form = this.formBuilder.group({
-            company_name: [null, [Validators.required, Validators.maxLength(15)]],
-            cnpj_cpf: [null],
-            address: [null, [Validators.required]],
-            address_number: [null, [Validators.required]],
-            city: [null, [Validators.required]],
-            state: [null, [Validators.required]],
+            company_name: [null, [Validators.required, Validators.maxLength(30)]],
+            cnpj_cpf: [null, [Validators.maxLength(14)]],
+            address: [null, [Validators.required, Validators.maxLength(100)]],
+            address_number: [null, [Validators.required, Validators.maxLength(10)]],
+            city: [null, [Validators.required, Validators.maxLength(30)]],
+            state: [null, [Validators.required, Validators.maxLength(2)]],
             contact: this.formBuilder.array([this.createContactFormGroup()]),
             logo: null
           });
@@ -368,7 +368,7 @@ export class AddComponent implements OnInit {
             }, error => {
               this.messageService.show('Erro ao excluir marca', 'error');
             })
-          break;
+            break;
 
           case 'categorias':
             this.connectionService.delete(Routes.CATEGORY, id).subscribe(data => {
@@ -377,7 +377,7 @@ export class AddComponent implements OnInit {
             }, error => {
               this.messageService.show('Erro ao excluir categoria', 'error');
             })
-          break;
+            break;
         }
 
 
@@ -388,9 +388,13 @@ export class AddComponent implements OnInit {
   save() {
     switch (this.activeRoute) {
       case 'veiculos':
-        this.form.get('files').setValue(this.files);
+        this.form.get('images').setValue(this.files);
         this.connectionService.post(Routes.VEHICLES, this.form.value).subscribe(data => {
-          console.log(data);
+          this.form.reset();
+          this.router.navigate(['/admin/adicionar/marcas']);
+          this.messageService.show('Veículo cadastrado com sucesso', 'success');
+        }, error => {
+          this.messageService.show('Erro ao cadastrar veículo', 'error');
         })
         break;
       case 'informacoes':
