@@ -15,20 +15,22 @@
         <div class="flex">
           <mat-form-field class="w-2/4 pr-4">
             <mat-label>Marca</mat-label>
-            <mat-select formControlName="brand">
-              <mat-option value="1">Fiat</mat-option>
-              <mat-option value="2">Chevrolet</mat-option>
+            <mat-select formControlName="brand_id">
+              <mat-option *ngFor="let brand of brands | async" [value]="brand.id">
+                {{ brand.brand }}
+              </mat-option>
             </mat-select>
-            <mat-error *ngIf="form.get('brand').hasError('required')">A marca é obrigatória</mat-error>
+            <mat-error *ngIf="form.get('brand_id').hasError('required')">A marca é obrigatória</mat-error>
           </mat-form-field>
 
           <mat-form-field class="w-2/4">
             <mat-label>Categoria</mat-label>
-            <mat-select formControlName="category">
-              <mat-option value="1">Carro</mat-option>
-              <mat-option value="2">Moto</mat-option>
+            <mat-select formControlName="category_id">
+              <mat-option *ngFor="let category of categories | async" [value]="category.id">
+                {{ category.category }}
+              </mat-option>
             </mat-select>
-            <mat-error *ngIf="form.get('category').hasError('required')">A categoria é obrigatória</mat-error>
+            <mat-error *ngIf="form.get('category_id').hasError('required')">A categoria é obrigatória</mat-error>
           </mat-form-field>
         </div>
 
@@ -88,10 +90,10 @@
       </mat-card-actions>
 
       <div class="mt-4 p-2">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <table mat-table [dataSource]="brands" class="mat-elevation-z8">
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Marca</th>
-            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            <td mat-cell *matCellDef="let element">{{ element.brand }}</td>
           </ng-container>
 
           <ng-container matColumnDef="edit">
@@ -99,7 +101,7 @@
             <td mat-cell *matCellDef="let element" class="center">
               <a mat-raised-button color="primary" class="mr-2"
                 [routerLink]="['/admin/editar', 'marca', element.id]">Editar</a>
-              <button mat-raised-button color="warn" (click)="openDialog('100ms', '150ms')">Exluir</button>
+              <button mat-raised-button color="warn" (click)="openDialog('100ms', '150ms', element.id)">Exluir</button>
             </td>
           </ng-container>
 
@@ -130,10 +132,10 @@
       </mat-card-actions>
 
       <div class="mt-4 p-2">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <table mat-table [dataSource]="categories" class="mat-elevation-z8">
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Categoria</th>
-            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            <td mat-cell *matCellDef="let element">{{ element.category }}</td>
           </ng-container>
 
           <ng-container matColumnDef="edit">
@@ -141,7 +143,7 @@
             <td mat-cell *matCellDef="let element" class="center">
               <a mat-raised-button color="primary" class="mr-2"
                 [routerLink]="['/admin/editar', 'categoria', element.id]">Editar</a>
-              <button mat-raised-button color="warn" (click)="openDialog('100ms', '150ms')">Exluir</button>
+              <button mat-raised-button color="warn" (click)="openDialog('100ms', '150ms', element.id)">Exluir</button>
             </td>
           </ng-container>
 
@@ -159,8 +161,8 @@
 
         <mat-form-field class="w-full">
           <mat-label>Nome da empresa</mat-label>
-          <input matInput formControlName="name" />
-          <mat-error *ngIf="form.get('name').hasError('required')">O nome é obrigatório</mat-error>
+          <input matInput formControlName="company_name" />
+          <mat-error *ngIf="form.get('company_name').hasError('required')">O nome é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field class="w-full">
@@ -176,8 +178,8 @@
           </mat-form-field>
           <mat-form-field class="w-1/3">
             <mat-label>Número</mat-label>
-            <input matInput formControlName="number" />
-            <mat-error *ngIf="form.get('number').hasError('required')">O número é obrigatório</mat-error>
+            <input matInput formControlName="address_number" />
+            <mat-error *ngIf="form.get('address_number').hasError('required')">O número é obrigatório</mat-error>
           </mat-form-field>
         </div>
 
