@@ -15,20 +15,22 @@
         <div class="flex">
           <mat-form-field class="w-2/4 pr-4">
             <mat-label>Marca</mat-label>
-            <mat-select formControlName="brand">
-              <mat-option value="1">Fiat</mat-option>
-              <mat-option value="2">Chevrolet</mat-option>
+            <mat-select formControlName="brand_id">
+              <mat-option *ngFor="let brand of brands | async" [value]="brand.id">
+                {{ brand.brand }}
+              </mat-option>
             </mat-select>
-            <mat-error *ngIf="form.get('brand').hasError('required')">A marca é obrigatória</mat-error>
+            <mat-error *ngIf="form.get('brand_id').hasError('required')">A marca é obrigatória</mat-error>
           </mat-form-field>
 
           <mat-form-field class="w-2/4">
             <mat-label>Categoria</mat-label>
-            <mat-select formControlName="category">
-              <mat-option value="1">Carro</mat-option>
-              <mat-option value="2">Moto</mat-option>
+            <mat-select formControlName="category_id">
+              <mat-option *ngFor="let category of categories | async" [value]="category.id">
+                {{ category.category }}
+              </mat-option>
             </mat-select>
-            <mat-error *ngIf="form.get('category').hasError('required')">A categoria é obrigatória</mat-error>
+            <mat-error *ngIf="form.get('category_id').hasError('required')">A categoria é obrigatória</mat-error>
           </mat-form-field>
         </div>
 
@@ -54,8 +56,17 @@
           </mat-form-field>
         </div>
 
+        <div>
+          <mat-form-field class="w-full">
+            <mat-label>Descrição</mat-label>
+            <textarea rows="3" matInput formControlName="description" placeholder="Descreva o veículo, por exemplo: 4 portas, preto, motor 1.0" #field></textarea>
+            <mat-hint align="end">{{field.value.length}}/150</mat-hint>
+            <mat-error *ngIf="form.get('description').hasError('maxlength')">Maximo de 150 caracteres</mat-error>
+          </mat-form-field>
+        </div>
+
         <div class="flex">
-          <app-file-input (file)="getFiles($event)" [inputFile]="form.get('files').value" ></app-file-input>
+          <app-file-input (file)="getFiles($event)" [inputFile]="files"></app-file-input>
         </div>
 
       </mat-card-content>

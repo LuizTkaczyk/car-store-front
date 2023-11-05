@@ -219,7 +219,7 @@ export class AddComponent implements OnInit {
   ];
 
 
-  constructor(private route: ActivatedRoute,private router: Router, private formBuilder: FormBuilder, public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService) {
+  constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -280,6 +280,7 @@ export class AddComponent implements OnInit {
             category_id: [null, Validators.required],
             year: [null, [Validators.required, this.anoValido]],
             price: [null, [Validators.required, this.validatePrice]],
+            description: [null, [Validators.maxLength(150)]],
             images: null
           });
           break;
@@ -379,8 +380,6 @@ export class AddComponent implements OnInit {
             })
             break;
         }
-
-
       }
     });
   }
@@ -391,7 +390,7 @@ export class AddComponent implements OnInit {
         this.form.get('images').setValue(this.files);
         this.connectionService.post(Routes.VEHICLES, this.form.value).subscribe(data => {
           this.form.reset();
-          this.router.navigate(['/admin/adicionar/marcas']);
+          this.router.navigate(['/admin/lista']);
           this.messageService.show('Veículo cadastrado com sucesso', 'success');
         }, error => {
           this.messageService.show('Erro ao cadastrar veículo', 'error');
@@ -426,10 +425,6 @@ export class AddComponent implements OnInit {
       default:
         break;
     }
-    console.log(this.form.value)
   }
-
-
-
 }
 

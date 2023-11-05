@@ -1,4 +1,16 @@
 .image{
    height: 200px ;
-   
+
+}
+
+.slick-next {
+   right: 10px !important;
+}
+.slick-prev {
+   left: 1px;
+   z-index: 1;
+}
+
+.slick-prev:before, .slick-next:before {
+   font-size: 31px;
 }

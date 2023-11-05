@@ -21,11 +21,10 @@ export class ConnectionService {
   }
 
   put(route: string, body: any, id: number): Observable<any> {
-    console.log(body);
     return this.http.put<any>(this.apiUrl + route + '/' + id, body);
   }
 
-  getByid(route: string, id: string): Observable<any> {
+  getById(route: string, id: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + route + '/' + id);
   }
 
