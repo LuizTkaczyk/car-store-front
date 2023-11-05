@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-file-input',
   templateUrl: './file-input.component.html',
   styleUrls: ['./file-input.component.scss']
 })
-export class FileInputComponent implements OnInit {
+export class FileInputComponent implements OnInit, OnChanges {
   
   @Output() file = new EventEmitter<Array<any>>();
   @Input() inputFile : Array<any> = []; 
@@ -16,6 +16,10 @@ export class FileInputComponent implements OnInit {
   
   ngOnInit(): void {
     this.files = this.inputFile;
+  }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+     this.files = changes['inputFile'].currentValue;
   }
 
   remove(file: string): void {
@@ -34,7 +38,7 @@ export class FileInputComponent implements OnInit {
         const reader = new FileReader();
         reader.onload = () => {
           const imagePreview = reader.result;
-          this.files.push(imagePreview);
+          this.files.push({file: imagePreview});
           this.file.emit(this.files);
         };
         reader.readAsDataURL(selectedFile);
