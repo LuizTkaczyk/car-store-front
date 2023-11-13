@@ -6,5 +6,6 @@ export interface Vehicle{
     year: number,
     price: number,
     description?: string,
-    images?: any
+    images?: any,
+    deleting?: any,
 }

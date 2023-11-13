@@ -35,7 +35,7 @@
         </div>
 
         <div class="flex">
-          <mat-form-field class="w-2/4 pr-4">
+          <mat-form-field class="w-2/6 pr-4">
             <mat-label>Ano</mat-label>
             <input type="number" matInput formControlName="year" />
             <mat-error *ngIf="form.get('year').hasError('required') && form.get('year').touched">
@@ -43,26 +43,60 @@
             </mat-error>
             <mat-error
               *ngIf="form.get('year').hasError('anoInvalido') && form.get('year').dirty && !form.get('year').hasError('required')">
-              O ano deve estar entre 1950 e {{ currentYear + 1 }}
+              Escolha entre 1950 e {{ currentYear + 1 }}
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field class="w-2/4">
+          <mat-form-field class="w-2/6 pr-4">
             <mat-label>Valor</mat-label>
             <input matInput formControlName="price" mask="separator.2" thousandSeparator="," />
             <mat-error *ngIf="form.get('price').hasError('required')">O preço é obrigatório</mat-error>
-            <mat-error *ngIf="form.get('price').hasError('priceInvalido')">O preço deve estar entre 0 e
-              9.999.999,99</mat-error>
+            <mat-error *ngIf="form.get('price').hasError('priceInvalid')">Preço máximo 9.999.999,99</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-2/6 ">
+            <mat-label>Kilometragem</mat-label>
+            <input type="number" matInput formControlName="mileage" />
+            <mat-error
+              *ngIf="form.get('mileage').hasError('mileageInvalid')">
+              Máximo: 999999
+            </mat-error>
           </mat-form-field>
         </div>
-
         <div>
           <mat-form-field class="w-full">
             <mat-label>Descrição</mat-label>
-            <textarea rows="3" matInput formControlName="description" placeholder="Descreva o veículo, por exemplo: 4 portas, preto, motor 1.0" #field></textarea>
+            <textarea rows="3" matInput formControlName="description"
+              placeholder="Descreva o veículo, por exemplo: 4 portas, preto, motor 1.0" #field></textarea>
             <mat-hint align="end">{{field.value.length}}/150</mat-hint>
             <mat-error *ngIf="form.get('description').hasError('maxlength')">Maximo de 150 caracteres</mat-error>
           </mat-form-field>
+        </div>
+        <div class="flex">
+          <div formArrayName="optional" class="w-full">
+            <mat-label>Opcionais</mat-label>
+            <div class="row" *ngFor="let optional of form.get('optional').controls; let i = index" [formGroupName]="i">
+              <div class="flex">
+                <mat-form-field class="w-full pr-3">
+                  <mat-label>Opcional</mat-label>
+                  <input matInput formControlName="optional"  #fieldOptional>
+                  <mat-hint align="end">{{fieldOptional.value.length}}/30</mat-hint>
+                  <mat-error *ngIf="form.get('optional').controls[i].get('optional').hasError('maxlength')">Maximo de 20 caracteres por opcional</mat-error>
+                </mat-form-field>
+  
+                <div class="w-1/5 flex">
+                  <button class="float-left" mat-icon-button color="primary" aria-label="Remove/clear"
+                    (click)="removeOrClear(i, 'optional')" matTooltip="Remover">
+                    <mat-icon>highlight_off</mat-icon>
+                  </button>
+                  <button class="float-left" mat-icon-button color="primary" aria-label="Add"
+                    (click)="addOptionalFormGroup()" matTooltip="Adicionar">
+                    <mat-icon>add_circle_outline</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="flex">
@@ -137,7 +171,7 @@
       <mat-card-actions class="flex justify-center">
         <button mat-raised-button color="primary" class="mr-4" (click)="save()"
           [disabled]="form.invalid">Salvar</button>
-          <button mat-raised-button color="warn" [routerLink]="['/admin/lista']">Cancelar</button>
+        <button mat-raised-button color="warn" [routerLink]="['/admin/lista']">Cancelar</button>
       </mat-card-actions>
 
       <div class="mt-4 p-2">
@@ -228,11 +262,11 @@
 
               <div class="w-1/5 flex">
                 <button class="float-left" mat-icon-button color="primary" aria-label="Remove/clear"
-                  (click)="removeOrClearContact(i)" matTooltip="Remove">
+                  (click)="removeOrClear(i, 'contact')" matTooltip="Remover">
                   <mat-icon>highlight_off</mat-icon>
                 </button>
                 <button class="float-left" mat-icon-button color="primary" aria-label="Add"
-                  (click)="addContactFormGroup()" matTooltip="Add">
+                  (click)="addContactFormGroup()" matTooltip="Adicionar">
                   <mat-icon>add_circle_outline</mat-icon>
                 </button>
               </div>
@@ -247,7 +281,7 @@
       <mat-card-actions class="flex justify-center">
         <button mat-raised-button color="primary" class="mr-4" (click)="save()"
           [disabled]="form.invalid">Salvar</button>
-         <button mat-raised-button color="warn" [routerLink]="['/admin/lista']">Cancelar</button>
+        <button mat-raised-button color="warn" [routerLink]="['/admin/lista']">Cancelar</button>
       </mat-card-actions>
     </mat-card>
   </div>

@@ -6,13 +6,13 @@
             [config]="slideConfig" 
            >
         <div ngxSlickItem *ngFor="let image of post.images" >
-          <img class="h-52 object-cover" [src]="'data:image/png;base64,' + image.file" width="100%">
+          <img class="h-52 object-cover" [src]="image.url" width="100%">
         </div>
       </ngx-slick-carousel>
     </a>
     <mat-card-content class="text-center">
-      <p>{{post.model}}</p>
-      <p>Azul, 4 portas</p>
+      <p>{{post.brand.brand}} {{post.model}}</p>
+      <p>{{post.description}}</p>
       <p>{{post.price}}</p>
     </mat-card-content>
   </mat-card>

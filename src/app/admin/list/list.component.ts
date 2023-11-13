@@ -15,6 +15,8 @@ import { MessageService } from '../shared/message.service';
 export class ListComponent implements OnInit {
   displayedColumns: string[] = ['brand', 'model','category', 'year', 'price','edit'];
   vehicles = new Observable<Vehicle[]>();
+  deleting: Boolean = false;
+  vehicleToDeleteId: number = 0;
 
   constructor(public dialog: MatDialog, private connectionService: ConnectionService,private messageService: MessageService) {}
   ngOnInit(): void {
@@ -30,7 +32,10 @@ export class ListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        this.deleting = true;
+        this.vehicleToDeleteId = id
         this.connectionService.delete(Routes.VEHICLES, id).subscribe(data => {
+          this.deleting = false;
           this.messageService.show('Veículo excluído com sucesso', 'success');
           this.getVehicles();
         })

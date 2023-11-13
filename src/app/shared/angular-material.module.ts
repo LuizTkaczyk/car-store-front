@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -33,7 +34,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSelectModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AngularMaterialModule { }
