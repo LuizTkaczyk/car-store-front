@@ -21,7 +21,7 @@ export class AddComponent implements OnInit {
   dataSource: Array<any> = [];
   displayedColumns: string[] = ['name', 'edit'];
   currentYear = new Date().getFullYear();
-  files: any;
+  files: Array<any> = [];
   clearFiles: Boolean = false;
   categories = new Observable<Category[]>();
   brands = new Observable<Brand[]>();
@@ -224,29 +224,6 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.getActiveRoute();
-
-    switch (this.activeRoute) {
-      case 'veiculos':
-        this.getCategories();
-        this.getBrands();
-        break;
-      case 'informacoes':
-
-        break;
-
-      case 'marcas':
-        this.getBrands();
-        break;
-
-      case 'categorias':
-        this.getCategories();
-        break;
-
-      default:
-        break;
-    }
-
-
   }
 
   getCategories() {
@@ -264,16 +241,20 @@ export class AddComponent implements OnInit {
 
       switch (activeSegment) {
         case 'marcas':
+          this.getBrands();
           this.form = this.formBuilder.group({
             brand: [null, [Validators.required, Validators.maxLength(15)]],
           });
           break;
         case 'categorias':
+          this.getCategories();
           this.form = this.formBuilder.group({
             category: [null, [Validators.required, Validators.maxLength(15)]],
           });
           break;
         case 'veiculos':
+          this.getCategories();
+          this.getBrands();
           this.form = this.formBuilder.group({
             model: [null, [Validators.required, Validators.maxLength(30)]],
             brand_id: [null, Validators.required],
@@ -281,7 +262,9 @@ export class AddComponent implements OnInit {
             year: [null, [Validators.required, this.anoValido]],
             price: [null, [Validators.required, this.validatePrice]],
             description: [null, [Validators.maxLength(150)]],
-            images: null
+            mileage: [null, [this.validateMileage]],
+            optional: this.formBuilder.array([this.createOptionalFormGroup()]),
+            images: [null]
           });
           break;
         case 'informacoes':
@@ -313,12 +296,31 @@ export class AddComponent implements OnInit {
 
   validatePrice(control: AbstractControl): ValidationErrors | null {
     const price = control.value;
-
     if (price !== null && (isNaN(price) || price < 0 || price > 9999999.99)) {
-      return { 'priceInvalido': true };
+      return { 'priceInvalid': true };
     }
 
     return null;
+  }
+
+  validateMileage(control: AbstractControl): ValidationErrors | null {
+    const mileage = control.value;
+    if (mileage !== null && (isNaN(mileage) || mileage < 0 || mileage > 999999)) {
+      return { 'mileageInvalid': true };
+    }
+
+    return null;
+  }
+
+  private createOptionalFormGroup(): any {
+    return new FormGroup({
+      optional: new FormControl('', Validators.maxLength(30)),
+    })
+  }
+
+  public addOptionalFormGroup() {
+    const optional = this.form.get('optional') as FormArray
+    optional.push(this.createOptionalFormGroup())
   }
 
   private createContactFormGroup(): FormGroup {
@@ -333,17 +335,17 @@ export class AddComponent implements OnInit {
     contact.push(this.createContactFormGroup())
   }
 
-  public removeOrClearContact(i: number) {
-    const contact = this.form.get('contact') as FormArray
-    if (contact.length > 1) {
-      contact.removeAt(i)
+  public removeOrClear(i: number, form: string) {
+    const option = this.form.get(form) as FormArray
+    if (option.length > 1) {
+      option.removeAt(i)
     } else {
-      contact.reset()
+      option.reset()
     }
   }
 
   getFiles(event: any) {
-    this.files = event;
+    this.files = event || [];
   }
 
   resetForm() {
@@ -388,6 +390,7 @@ export class AddComponent implements OnInit {
     switch (this.activeRoute) {
       case 'veiculos':
         this.form.get('images').setValue(this.files);
+        console.log(this.form.value);
         this.connectionService.post(Routes.VEHICLES, this.form.value).subscribe(data => {
           this.form.reset();
           this.router.navigate(['/admin/lista']);
