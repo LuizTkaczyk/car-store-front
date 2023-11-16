@@ -25,6 +25,7 @@ export class AddComponent implements OnInit {
   clearFiles: Boolean = false;
   categories = new Observable<Category[]>();
   brands = new Observable<Brand[]>();
+  loading: Boolean = false;
 
   states = [
     {
@@ -389,12 +390,14 @@ export class AddComponent implements OnInit {
   save() {
     switch (this.activeRoute) {
       case 'veiculos':
+        this.loading = true;
         this.form.get('images').setValue(this.files);
-        console.log(this.form.value);
         this.connectionService.post(Routes.VEHICLES, this.form.value).subscribe(data => {
           this.form.reset();
           this.router.navigate(['/admin/lista']);
+          this.loading = false;
           this.messageService.show('Veículo cadastrado com sucesso', 'success');
+          
         }, error => {
           this.messageService.show('Erro ao cadastrar veículo', 'error');
         })

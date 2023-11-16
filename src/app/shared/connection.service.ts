@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,8 +12,9 @@ export class ConnectionService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(route: string): Observable<any> {
-    return this.http.get<any>(this.apiUrl + route);
+  getAll(route: string, page: number = 0, itemPerPage:number = 10): Observable<any> {
+    const params = new HttpParams().set('page', page.toString()).set('itemPerPage', itemPerPage.toString());
+    return this.http.get<any>(this.apiUrl + route, { params: params });
   }
 
   post(route: string, body: any): Observable<any> {

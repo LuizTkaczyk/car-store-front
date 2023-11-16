@@ -1,5 +1,5 @@
 import { Vehicle } from './../model/vehicle.model';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../shared/modal/modal.component';
 import { ConnectionService } from 'src/app/shared/connection.service';
@@ -14,9 +14,14 @@ import { MessageService } from '../shared/message.service';
 })
 export class ListComponent implements OnInit {
   displayedColumns: string[] = ['brand', 'model','category', 'year', 'price','edit'];
-  vehicles = new Observable<Vehicle[]>();
-  deleting: Boolean = false;
-  vehicleToDeleteId: number = 0;
+  vehicles : Vehicle[] = [];
+  
+  page = 0;
+  itemsPerPage = 10;
+  totalItems  = 0;
+  
+  pageSizeOptions = [5, 10, 25];
+  showFirstLastButtons = true;
 
   constructor(public dialog: MatDialog, private connectionService: ConnectionService,private messageService: MessageService) {}
   ngOnInit(): void {
@@ -31,19 +36,29 @@ export class ListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      
       if(result){
-        this.deleting = true;
-        this.vehicleToDeleteId = id
+        let itemToDelete = this.vehicles.find(item => item.id == id);
+        if (itemToDelete) {
+          itemToDelete.deleting = true;
+        }
         this.connectionService.delete(Routes.VEHICLES, id).subscribe(data => {
-          this.deleting = false;
           this.messageService.show('Veículo excluído com sucesso', 'success');
-          this.getVehicles();
+          this.vehicles = this.vehicles.filter(item => item.id !== id);
         })
       }
     });
   }
 
   getVehicles(){
-    this.vehicles = this.connectionService.getAll(Routes.VEHICLES);
+    this.connectionService.getAll(Routes.VEHICLES, this.page, this.itemsPerPage).subscribe(response => {
+      this.vehicles = response.data;
+      this.totalItems = response.total;
+    });
+  }
+  handlePageEvent(event: any) {
+    this.page = event.pageIndex + 1; // O índice da página começa em 0
+    this.itemsPerPage = event.pageSize;
+    this.getVehicles();
   }
 }
