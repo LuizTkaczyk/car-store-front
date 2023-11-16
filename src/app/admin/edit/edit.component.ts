@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { ConnectionService } from 'src/app/shared/connection.service';
 import { Routes } from 'src/app/shared/constansts';import { Category } from '../model/category.model';
 import { Brand } from '../model/brand.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../shared/modal/modal.component';
 ;
 
 @Component({
@@ -18,12 +20,15 @@ export class EditComponent implements OnInit {
   activeRoute: string = '';
   currentYear = new Date().getFullYear();
   files: any;
+  filesToDelete: any;
+  deleting: Boolean = false;
+  loading: Boolean = false;
  
   id: any;
   categories = new Observable<Category[]>();
   brands = new Observable<Brand[]>();
   
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private connectionService: ConnectionService, private messageService: MessageService, private router: Router, private changes: ChangeDetectorRef) { }
+  constructor(public dialog: MatDialog,private route: ActivatedRoute, private formBuilder: FormBuilder, private connectionService: ConnectionService, private messageService: MessageService, private router: Router, private changes: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getActiveRoute();
@@ -73,7 +78,8 @@ export class EditComponent implements OnInit {
             category_id: [null, Validators.required],
             price: [null, [Validators.required, this.validatePrice]],
             description: [null, [Validators.maxLength(150)]],
-            images: null
+            images: null,
+            imagesToDelete: null,
           });
 
           this.connectionService.getById(Routes.VEHICLES, this.id).subscribe(data => {
@@ -120,10 +126,15 @@ export class EditComponent implements OnInit {
     this.files = event;
   }
 
+  getFilesToDelete(event: Array<any>) {
+    this.filesToDelete = event;
+  }
+
   save() {
     switch (this.activeRoute) {
       case 'veiculo':
         this.form.get('images').setValue(this.files);
+        this.form.get('imagesToDelete').setValue(this.filesToDelete);
         this.connectionService.put(Routes.VEHICLES, this.form.value, this.id).subscribe(data => {
           this.messageService.show('Veículo editado com sucesso', 'success');
           this.router.navigate(['/admin/lista']);
@@ -158,5 +169,27 @@ export class EditComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '300px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loading = true;
+      if(result){
+        this.deleting = true;
+        //this.vehicleToDeleteId = id
+        this.connectionService.delete(Routes.VEHICLES, this.id).subscribe(data => {
+          this.deleting = false;
+          this.messageService.show('Veículo excluído com sucesso', 'success');
+          this.router.navigate(['/admin/lista']);
+          this.loading = false;
+        })
+      }
+    });
   }
 }

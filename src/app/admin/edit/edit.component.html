@@ -66,15 +66,22 @@
         </div>
 
         <div class="flex">
-          <app-file-input (file)="getFiles($event)" [inputFile]="files"></app-file-input>
+          <app-file-input (file)="getFiles($event)" [inputFile]="files" (filesToDelete)="getFilesToDelete($event)"></app-file-input>
         </div>
 
       </mat-card-content>
 
       <mat-card-actions class="flex justify-center">
-        <button mat-raised-button color="primary" class="mr-4" (click)="save()"
-          [disabled]="form.invalid">Salvar</button>
-        <button mat-raised-button color="warn">Limpar</button>
+        <button  mat-raised-button color="primary" class="mr-4" (click)="save()"
+          [disabled]="form.invalid || loading">Salvar</button>
+        
+          <button disabled="{{ loading }}" mat-raised-button color="warn" (click)="openDialog('100ms', '150ms')">
+            <div class="flex items-center">
+              <p class="{{ loading ? ' mr-2' : ''}}">{{ loading ? 'Excluindo' : 'Excluir' }}</p>
+              <mat-spinner *ngIf="loading" diameter="19"></mat-spinner>
+            </div>
+          </button>
+         
       </mat-card-actions>
     </mat-card>
   </div>

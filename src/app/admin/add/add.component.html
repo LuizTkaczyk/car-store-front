@@ -57,8 +57,7 @@
           <mat-form-field class="w-2/6 ">
             <mat-label>Kilometragem</mat-label>
             <input type="number" matInput formControlName="mileage" />
-            <mat-error
-              *ngIf="form.get('mileage').hasError('mileageInvalid')">
+            <mat-error *ngIf="form.get('mileage').hasError('mileageInvalid')">
               Máximo: 999999
             </mat-error>
           </mat-form-field>
@@ -79,11 +78,12 @@
               <div class="flex">
                 <mat-form-field class="w-full pr-3">
                   <mat-label>Opcional</mat-label>
-                  <input matInput formControlName="optional"  #fieldOptional>
+                  <input matInput formControlName="optional" #fieldOptional>
                   <mat-hint align="end">{{fieldOptional.value.length}}/30</mat-hint>
-                  <mat-error *ngIf="form.get('optional').controls[i].get('optional').hasError('maxlength')">Maximo de 20 caracteres por opcional</mat-error>
+                  <mat-error *ngIf="form.get('optional').controls[i].get('optional').hasError('maxlength')">Maximo de 20
+                    caracteres por opcional</mat-error>
                 </mat-form-field>
-  
+
                 <div class="w-1/5 flex">
                   <button class="float-left" mat-icon-button color="primary" aria-label="Remove/clear"
                     (click)="removeOrClear(i, 'optional')" matTooltip="Remover">
@@ -106,9 +106,15 @@
       </mat-card-content>
 
       <mat-card-actions class="flex justify-center">
-        <button mat-raised-button color="primary" class="mr-4" (click)="save()"
-          [disabled]="form.invalid">Salvar</button>
-        <button mat-raised-button color="warn" [routerLink]="['/admin/lista']">Cancelar</button>
+        <button disabled="{{ loading }}" mat-raised-button color="primary" class="mr-4" (click)="save()"
+          [disabled]="form.invalid">
+          <div class="flex items-center">
+            <p class="{{ loading ? ' mr-2' : ''}}">{{ loading ? 'Salvando' : 'Salvar' }}</p>
+            <mat-spinner *ngIf="loading" diameter="19"></mat-spinner>
+          </div>
+        </button>
+        <button disabled="{{ loading }}" mat-raised-button color="warn"
+          [routerLink]="['/admin/lista']">Cancelar</button>
       </mat-card-actions>
     </mat-card>
   </div>

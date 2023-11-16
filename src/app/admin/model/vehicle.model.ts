@@ -1,5 +1,5 @@
 export interface Vehicle{
-    id?: string,
+    id?: number,
     model: string,
     brand_id: string,
     category_id: string,
@@ -7,5 +7,5 @@ export interface Vehicle{
     price: number,
     description?: string,
     images?: any,
-    deleting?: any,
+    deleting?: boolean,
 }

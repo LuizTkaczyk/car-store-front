@@ -8,9 +8,11 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 export class FileInputComponent implements OnInit, OnChanges {
   
   @Output() file = new EventEmitter<Array<any>>();
+  @Output() filesToDelete = new EventEmitter<Array<any>>();
   @Input() inputFile : Array<any> = []; 
   
   files : any[] = [];
+  filesToDel : any[] = [];
   selectedFile: File | null = null;
   imagePreview : any;
   
@@ -24,6 +26,9 @@ export class FileInputComponent implements OnInit, OnChanges {
 
   remove(file: string): void {
     const index = this.files.indexOf(file);
+    this.filesToDel.push(file);
+    this.filesToDelete.emit(this.filesToDel);
+
     if (index >= 0) {
       this.files.splice(index, 1);
       this.file.emit(this.files);
@@ -39,6 +44,7 @@ export class FileInputComponent implements OnInit, OnChanges {
         reader.onload = () => {
           const imagePreview = reader.result;
           this.files.push({file: imagePreview});
+          console.log(this.files)
           this.file.emit(this.files);
         };
         reader.readAsDataURL(selectedFile);
