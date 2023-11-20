@@ -1,55 +1,66 @@
-<div class="px-4">
-  <table mat-table [dataSource]="vehicles" class="mat-elevation-z8">
-    <ng-container matColumnDef="brand">
-      <th mat-header-cell *matHeaderCellDef>Marca</th>
-      <td mat-cell *matCellDef="let element">{{ element.brand.brand }}</td>
-    </ng-container>
+<div class="px-4 example-container mat-elevation-z8">
+  <div *ngIf="!loading && vehicles.length > 0">
+    <div class="example-table-container">
+      <div class="table-header">
+        <table mat-table [dataSource]="vehicles" class="example-table">
+          <ng-container matColumnDef="brand">
+            <th mat-header-cell *matHeaderCellDef>Marca</th>
+            <td mat-cell *matCellDef="let element">{{ element.brand.brand }}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="model">
+            <th mat-header-cell *matHeaderCellDef>Modelo</th>
+            <td mat-cell *matCellDef="let element">{{ element.model }}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>Categoria</th>
+            <td mat-cell *matCellDef="let element">{{ element.category.category }}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="year">
+            <th mat-header-cell *matHeaderCellDef>Ano</th>
+            <td mat-cell *matCellDef="let element">{{ element.year }}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Valor</th>
+            <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef class="center w-52">Editar</th>
+            <td mat-cell *matCellDef="let element" class="center">
+              <a mat-raised-button color="primary" class="mr-2"
+                [routerLink]="['/admin/editar', 'veiculo', element.id]">Editar</a>
+    
+              <button [disabled]="element.deleting" mat-raised-button color="warn"
+                (click)="openDialog('100ms', '150ms', element.id)">
+                <div class="flex items-center">
+                  <p>{{ element.deleting ? '' : 'Excluir' }}</p>
+                  <mat-spinner *ngIf="element.deleting" diameter="19"></mat-spinner>
+                </div>
+              </button>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div>
+    <div class="paginator-container">
+      <mat-paginator (page)="handlePageEvent($event)" [length]="totalItems" [pageSize]="itemsPerPage"
+        [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="page - 1">
+      </mat-paginator>
+    </div>
+  </div>
 
-    <ng-container matColumnDef="model">
-      <th mat-header-cell *matHeaderCellDef>Modelo</th>
-      <td mat-cell *matCellDef="let element">{{ element.model }}</td>
-    </ng-container>
+  <div *ngIf="loading" class="flex justify-center">
+    <mat-spinner></mat-spinner>
+  </div>
 
-    <ng-container matColumnDef="category">
-      <th mat-header-cell *matHeaderCellDef>Categoria</th>
-      <td mat-cell *matCellDef="let element">{{ element.category.category }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="year">
-      <th mat-header-cell *matHeaderCellDef>Ano</th>
-      <td mat-cell *matCellDef="let element">{{ element.year }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef>Valor</th>
-      <td mat-cell *matCellDef="let element">{{ element.price }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef class="center w-52">Editar</th>
-      <td mat-cell *matCellDef="let element" class="center">
-        <a mat-raised-button color="primary" class="mr-2" [routerLink]="['/admin/editar', 'veiculo', element.id]">Editar</a>
-       
-        <button [disabled]="element.deleting" mat-raised-button color="warn" (click)="openDialog('100ms', '150ms', element.id)">
-          <div class="flex items-center">
-            <p>{{ element.deleting ? '' : 'Excluir' }}</p>
-            <mat-spinner *ngIf="element.deleting" diameter="19"></mat-spinner>
-          </div>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-  <mat-paginator
-    (page)="handlePageEvent($event)"
-    [length]="totalItems"
-    [pageSize]="itemsPerPage"
-    [showFirstLastButtons]="showFirstLastButtons"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageIndex]="page - 1"
-  >
-  </mat-paginator>
+  <div *ngIf="vehicles.length == 0 && !loading" class="flex justify-center">
+    <p class="text-4xl">Nenhum veículo cadastrado</p>
+  </div>
 </div>

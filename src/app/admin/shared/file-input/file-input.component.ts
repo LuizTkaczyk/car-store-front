@@ -17,11 +17,17 @@ export class FileInputComponent implements OnInit, OnChanges {
   imagePreview : any;
   
   ngOnInit(): void {
-    this.files = this.inputFile;
+    //this.files = this.inputFile;
   }
   
   ngOnChanges(changes: SimpleChanges): void {
-     this.files = changes['inputFile'].currentValue;
+    if (
+      changes['inputFile'] &&
+      Array.isArray(changes['inputFile'].currentValue)
+    ) {
+      // Remove objetos com file igual a 'defaultImage' do array
+      this.files = changes['inputFile'].currentValue.filter(item => item.file !== 'defaultImage');
+    }
   }
 
   remove(file: string): void {

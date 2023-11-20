@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { Routes } from 'src/app/shared/constansts';
 import { Category } from '../model/category.model';
 import { Brand } from '../model/brand.model';
 import { MessageService } from '../shared/message.service';
+import { Information } from '../model/information.model';
 
 @Component({
   selector: 'app-add',
@@ -25,7 +26,9 @@ export class AddComponent implements OnInit {
   clearFiles: Boolean = false;
   categories = new Observable<Category[]>();
   brands = new Observable<Brand[]>();
+  information : Array<Information> = [];
   loading: Boolean = false;
+  contact: Array<any> = [];
 
   states = [
     {
@@ -220,7 +223,7 @@ export class AddComponent implements OnInit {
   ];
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService) {
+  constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService, private changes: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -233,6 +236,36 @@ export class AddComponent implements OnInit {
 
   getBrands() {
     this.brands = this.connectionService.getAll(Routes.BRAND);
+  }
+
+  getInformation() {
+    
+    this.connectionService.getById(Routes.INFORMATION, '1').subscribe(data => {
+      this.information = data;
+      this.files = data.logo;
+      this.form.reset(data);
+
+      if(data.contacts.length > 0) {
+        const contactsFormArray = this.form.get('contact') as FormArray;
+  
+        while (contactsFormArray.length !== 0) {
+          contactsFormArray.removeAt(0);
+        }
+    
+        // Adicionar contatos do array recebido
+        data.contacts.forEach((contact: any) => {
+          contactsFormArray.push(this.setFormGroup(contact));
+        });
+      }
+        
+    })
+  }
+
+  private setFormGroup(contact: any): FormGroup {
+    return this.formBuilder.group({
+      name: [contact.name],
+      phone: [contact.phone]
+    });
   }
 
   getActiveRoute() {
@@ -270,6 +303,7 @@ export class AddComponent implements OnInit {
           break;
         case 'informacoes':
           this.form = this.formBuilder.group({
+            id: [null],
             company_name: [null, [Validators.required, Validators.maxLength(30)]],
             cnpj_cpf: [null, [Validators.maxLength(14)]],
             address: [null, [Validators.required, Validators.maxLength(100)]],
@@ -279,6 +313,8 @@ export class AddComponent implements OnInit {
             contact: this.formBuilder.array([this.createContactFormGroup()]),
             logo: null
           });
+
+          this.getInformation();
           break;
       }
     });
@@ -326,7 +362,7 @@ export class AddComponent implements OnInit {
 
   private createContactFormGroup(): FormGroup {
     return new FormGroup({
-      number: new FormControl('', Validators.required),
+      phone: new FormControl('', Validators.required),
       name: new FormControl('', Validators.required),
     })
   }
@@ -338,6 +374,7 @@ export class AddComponent implements OnInit {
 
   public removeOrClear(i: number, form: string) {
     const option = this.form.get(form) as FormArray
+    console.log(option)
     if (option.length > 1) {
       option.removeAt(i)
     } else {
@@ -403,11 +440,13 @@ export class AddComponent implements OnInit {
         })
         break;
       case 'informacoes':
+        this.form.get('logo').setValue(this.files);
         this.connectionService.post(Routes.INFORMATION, this.form.value).subscribe(data => {
-          console.log(data);
+          this.messageService.show('Inforamções salvas com sucesso', 'success');
+        }, error => {
+          this.messageService.show('Erro ao salvar informações', 'error');
         })
         break;
-
       case 'marcas':
         this.connectionService.post(Routes.BRAND, this.form.value).subscribe(data => {
           this.form.reset();

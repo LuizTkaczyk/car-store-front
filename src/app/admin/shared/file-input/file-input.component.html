@@ -4,7 +4,7 @@
     <div class="flex flex-wrap">
         <mat-card class="flex m-2" *ngFor="let file of files">
             <mat-card-content>
-                <img class="image-size rounded-sm object-cover" src="{{file.url ?? file.file}}">
+                <img class="image-size rounded-sm object-cover" src="{{file?.url ? 'http://localhost:8000' + file?.url : file.file}}">
             </mat-card-content>
             <mat-card-actions class="flex justify-center">
                 <button mat-icon-button color="warn" (click)="remove(file)" matTooltip="Exluir">

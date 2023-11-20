@@ -1,19 +1,17 @@
 <div class="flex flex-wrap">
   <mat-card class="example-card w-80 m-4" *ngFor="let post of posts">
+    <ngx-slick-carousel class="slick" #slickModal="slick-carousel" [config]="slideConfig">
+      <div ngxSlickItem *ngFor="let image of post.images">
+        <img class="h-52 object-cover" [src]="'http://localhost:8000'+image.url" width="100%">
+      </div>
+    </ngx-slick-carousel>
+
     <a [routerLink]="['view-post', post.id]" routerLinkActive="active">
-      <ngx-slick-carousel class="slick"
-            #slickModal="slick-carousel" 
-            [config]="slideConfig" 
-           >
-        <div ngxSlickItem *ngFor="let image of post.images" >
-          <img class="h-52 object-cover" [src]="image.url" width="100%">
-        </div>
-      </ngx-slick-carousel>
+      <mat-card-content class="text-center">
+        <p>{{post.brand.brand}} {{post.model}}</p>
+        <p>{{post.description}}</p>
+        <p>{{post.price}}</p>
+      </mat-card-content>
     </a>
-    <mat-card-content class="text-center">
-      <p>{{post.brand.brand}} {{post.model}}</p>
-      <p>{{post.description}}</p>
-      <p>{{post.price}}</p>
-    </mat-card-content>
   </mat-card>
 </div>

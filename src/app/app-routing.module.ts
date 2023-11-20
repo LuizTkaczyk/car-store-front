@@ -12,8 +12,8 @@ import { AddComponent } from './admin/add/add.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, children: [
+    { path: 'view-post/:id', component: ViewPostComponent },
     { path: '', component: PostsComponent },
-    { path: 'view-post', component: ViewPostComponent },
   ]},
 
   { path: 'login', component: LoginComponent},
