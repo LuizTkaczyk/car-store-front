@@ -1,10 +1,10 @@
 import { MessageService } from './../shared/message.service';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ConnectionService } from 'src/app/shared/connection.service';
-import { Routes } from 'src/app/shared/constansts';import { Category } from '../model/category.model';
+import { Routes } from 'src/app/shared/constansts'; import { Category } from '../model/category.model';
 import { Brand } from '../model/brand.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../shared/modal/modal.component';
@@ -22,13 +22,14 @@ export class EditComponent implements OnInit {
   files: any;
   filesToDelete: any;
   deleting: Boolean = false;
-  loading: Boolean = false;
- 
+  loadingDelete: Boolean = false;
+  loadingSave: Boolean = false;
+
   id: any;
   categories = new Observable<Category[]>();
   brands = new Observable<Brand[]>();
-  
-  constructor(public dialog: MatDialog,private route: ActivatedRoute, private formBuilder: FormBuilder, private connectionService: ConnectionService, private messageService: MessageService, private router: Router, private changes: ChangeDetectorRef) { }
+
+  constructor(public dialog: MatDialog, private route: ActivatedRoute, private formBuilder: FormBuilder, private connectionService: ConnectionService, private messageService: MessageService, private router: Router, private changes: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getActiveRoute();
@@ -78,26 +79,50 @@ export class EditComponent implements OnInit {
             category_id: [null, Validators.required],
             price: [null, [Validators.required, this.validatePrice]],
             description: [null, [Validators.maxLength(150)]],
+            optional: this.formBuilder.array([this.createOptionalFormGroup()]),
             images: null,
             imagesToDelete: null,
           });
 
           this.connectionService.getById(Routes.VEHICLES, this.id).subscribe(data => {
             this.form.reset(data);
+            if (data.optional.length > 0) {
+              const optionalFormArray = this.form.get('optional') as FormArray;
+
+              while (optionalFormArray.length !== 0) {
+                optionalFormArray.removeAt(0);
+              }
+
+              // Adicionar opcionais do array recebido
+              data.optional.forEach((optional: any) => {
+                optionalFormArray.push(this.setFormGroup(optional));
+              });
+            }
+            
             this.files = this.form.get('images').value;
+            console.log(this.form);
             this.changes.markForCheck();
           })
-         
+
           break;
         case 'informacoes':
           this.form = this.formBuilder.group({
             contact: [null, [Validators.required, Validators.maxLength(15)]],
           });
-          let dados3 = { id: 1, phone: '4288882111' };
-          this.form.reset(dados3);
+          this.connectionService.getById(Routes.INFORMATION, this.id).subscribe(data => {
+            this.form.reset(data);
+            this.files = this.form.get('logo').value;
+            this.changes.markForCheck();
+          })
           break;
       }
 
+    });
+  }
+
+  private setFormGroup(optional: any): FormGroup {
+    return this.formBuilder.group({
+      optional: [optional.name]
     });
   }
 
@@ -130,24 +155,40 @@ export class EditComponent implements OnInit {
     this.filesToDelete = event;
   }
 
+  public removeOrClear(i: number, form: string) {
+    const option = this.form.get(form) as FormArray
+    if (option.length > 1) {
+      option.removeAt(i)
+    } else {
+      option.reset()
+    }
+  }
+
+  public addOptionalFormGroup() {
+    const optional = this.form.get('optional') as FormArray
+    optional.push(this.createOptionalFormGroup())
+  }
+
+  private createOptionalFormGroup(): any {
+    return new FormGroup({
+      optional: new FormControl('', Validators.maxLength(30)),
+    })
+  }
+
   save() {
     switch (this.activeRoute) {
       case 'veiculo':
+        this.loadingSave = true;
         this.form.get('images').setValue(this.files);
         this.form.get('imagesToDelete').setValue(this.filesToDelete);
         this.connectionService.put(Routes.VEHICLES, this.form.value, this.id).subscribe(data => {
           this.messageService.show('Veículo editado com sucesso', 'success');
           this.router.navigate(['/admin/lista']);
+          this.loadingSave = false;
         }, error => {
           this.messageService.show('Erro ao editar veículo', 'error');
         })
         break;
-      case 'informacoes':
-        this.connectionService.put(Routes.INFORMATION, this.form.value, this.id).subscribe(data => {
-          console.log(data);
-        })
-        break;
-
       case 'marca':
         this.connectionService.put(Routes.BRAND, this.form.value, this.id).subscribe(data => {
           this.messageService.show('Marca editada com sucesso', 'success');
@@ -179,15 +220,15 @@ export class EditComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.loading = true;
-      if(result){
+      this.loadingDelete = true;
+      if (result) {
         this.deleting = true;
         //this.vehicleToDeleteId = id
         this.connectionService.delete(Routes.VEHICLES, this.id).subscribe(data => {
           this.deleting = false;
           this.messageService.show('Veículo excluído com sucesso', 'success');
           this.router.navigate(['/admin/lista']);
-          this.loading = false;
+          this.loadingDelete = false;
         })
       }
     });

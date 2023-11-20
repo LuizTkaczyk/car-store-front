@@ -1,3 +1,29 @@
-.center{
+.center {
     text-align: center;
 }
+
+.paginator-container {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    z-index: 1;
+    padding: 10px;
+}
+
+.mat-table-sticky {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.mat-table-sticky th,
+.mat-table-sticky td {
+    padding: 8px;
+    text-align: left;
+}
+
+// .mat-table-sticky th {
+//     background-color: #f2f2f2;
+//     position: sticky;
+//     top: 0;
+//     z-index: 2;
+// }

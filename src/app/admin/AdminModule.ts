@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { LoginComponent } from './login/login.component';
@@ -14,7 +14,11 @@ import { FileInputComponent } from './shared/file-input/file-input.component';
 import { LogoInputComponent } from './shared/logo-input/logo-input.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { ToastrModule } from 'ngx-toastr';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getDutchPaginatorIntl } from '../shared/translate-paginator-intl';
+// import localePt from '@angular/common/locales/pt';
 
+// registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -38,8 +42,10 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot()
   ],
   providers: [
-    provideNgxMask()
-  ]
+    provideNgxMask(),
+    { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }
+  ],
+  
 })
 export class AdminModule {
 }

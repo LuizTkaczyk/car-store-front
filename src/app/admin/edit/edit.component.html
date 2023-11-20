@@ -66,6 +66,34 @@
         </div>
 
         <div class="flex">
+          <div formArrayName="optional" class="w-full">
+            <mat-label>Opcionais</mat-label>
+            <div class="row" *ngFor="let optional of form.get('optional').controls; let i = index" [formGroupName]="i">
+              <div class="flex">
+                <mat-form-field class="w-full pr-3">
+                  <mat-label>Opcional</mat-label>
+                  <input matInput formControlName="optional" #fieldOptional>
+                  <mat-hint align="end">{{fieldOptional.value.length}}/30</mat-hint>
+                  <mat-error *ngIf="form.get('optional').controls[i].get('optional').hasError('maxlength')">Maximo de 20
+                    caracteres por opcional</mat-error>
+                </mat-form-field>
+
+                <div class="w-1/5 flex">
+                  <button class="float-left" mat-icon-button color="primary" aria-label="Remove/clear"
+                    (click)="removeOrClear(i, 'optional')" matTooltip="Remover">
+                    <mat-icon>highlight_off</mat-icon>
+                  </button>
+                  <button class="float-left" mat-icon-button color="primary" aria-label="Add"
+                    (click)="addOptionalFormGroup()" matTooltip="Adicionar">
+                    <mat-icon>add_circle_outline</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex">
           <app-file-input (file)="getFiles($event)" [inputFile]="files" (filesToDelete)="getFilesToDelete($event)"></app-file-input>
         </div>
 
@@ -73,12 +101,15 @@
 
       <mat-card-actions class="flex justify-center">
         <button  mat-raised-button color="primary" class="mr-4" (click)="save()"
-          [disabled]="form.invalid || loading">Salvar</button>
+          [disabled]="form.invalid || loadingSave || loadingDelete"> <div class="flex items-center">
+            <p class="{{ loadingSave ? ' mr-2' : ''}}">{{ loadingSave ? 'Salvando' : 'Salvar' }}</p>
+            <mat-spinner *ngIf="loadingSave" diameter="19"></mat-spinner>
+          </div></button>
         
-          <button disabled="{{ loading }}" mat-raised-button color="warn" (click)="openDialog('100ms', '150ms')">
+          <button disabled="{{ loadingDelete || loadingSave}}" mat-raised-button color="warn" (click)="openDialog('100ms', '150ms')">
             <div class="flex items-center">
-              <p class="{{ loading ? ' mr-2' : ''}}">{{ loading ? 'Excluindo' : 'Excluir' }}</p>
-              <mat-spinner *ngIf="loading" diameter="19"></mat-spinner>
+              <p class="{{ loadingDelete ? ' mr-2' : ''}}">{{ loadingDelete ? 'Excluindo' : 'Excluir' }}</p>
+              <mat-spinner *ngIf="loadingDelete" diameter="19"></mat-spinner>
             </div>
           </button>
          
