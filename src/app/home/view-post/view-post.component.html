@@ -1,17 +1,44 @@
-<button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" [routerLink]="['']">Voltar</button>
+<div class="pt-44 pb-3 h-full box-border">
+  <app-header></app-header>
 
-<div class="flex mt-2">
-  <mat-card class="example-card post mr-2 ml-2">
-    <ngx-slick-carousel class="slick" #slickModal="slick-carousel" [config]="slideConfig">
-      <div ngxSlickItem *ngFor="let image of vehicle?.images">
-        <img class="object-cover" [src]="'http://localhost:8000'+image.url" width="100%">
+  <div class="m-auto">
+    <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" [routerLink]="['']">Voltar</button>
+    
+    <div class="flex justify-center">
+      <mat-card class="example-card post mr-2 ml-2 ">
+        <ngx-slick-carousel class="slick" #slickModal="slick-carousel" [config]="slideConfig">
+          <div ngxSlickItem *ngFor="let image of vehicle?.images">
+            <img class="object-cover" [src]="'http://localhost:8000'+image.url" width="100%">
+          </div>
+        </ngx-slick-carousel>
+      </mat-card>
+      <div class="w-96">
+        <mat-card class="example-card w-full mr-2 ml-2 p-2">
+          <h5>{{vehicle?.brand?.brand}} {{vehicle?.model}}</h5>
+          <h5>{{vehicle?.price | priceFormat}} </h5>
+          <h5>Ano: {{vehicle?.year}}</h5>
+
+          <div class="mt-2" *ngIf="vehicle?.description">
+            <h5 class="italic font-semibold">Descrição</h5>
+            <p>{{vehicle?.description}}</p>
+          </div>
+
+          <div class="mt-2" *ngIf="vehicle?.optional && vehicle?.optional.length">
+            <h5 class="italic font-semibold">Opcionais</h5>
+            <div *ngFor="let options of vehicle.optional">
+              <li>{{options.name}}</li>
+            </div>
+          </div>
+
+          <div *ngIf="contacts && contacts.length" class="mt-2">
+            <h5 class="italic font-semibold">Entre em contato</h5>
+            <div *ngFor="let contact of contacts">
+              <p>{{contact.name}} - {{contact.phone | phoneFormat}}</p>
+            </div>
+          </div>
+        </mat-card>
       </div>
-    </ngx-slick-carousel>
-  </mat-card>
-  <div class="flex-row">
-    <h5>{{vehicle?.brand?.brand}} {{vehicle?.model}}</h5>
-    <h5>Preço: R$ {{vehicle?.price}} </h5>
-    <h5>Ano: {{vehicle?.year}}</h5>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Contato</button>
+    </div>
+
   </div>
 </div>

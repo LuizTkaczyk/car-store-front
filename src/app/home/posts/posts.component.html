@@ -6,11 +6,11 @@
       </div>
     </ngx-slick-carousel>
 
-    <a [routerLink]="['view-post', post.id]" routerLinkActive="active">
+    <a [routerLink]="['/view-post', post.id]" routerLinkActive="active">
       <mat-card-content class="text-center">
         <p>{{post.brand.brand}} {{post.model}}</p>
         <p>{{post.description}}</p>
-        <p>{{post.price}}</p>
+        <p>{{post.price  | priceFormat}}</p>
       </mat-card-content>
     </a>
   </mat-card>

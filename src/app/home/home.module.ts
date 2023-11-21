@@ -9,6 +9,9 @@ import { AngularMaterialModule } from '../shared/angular-material.module';
 import { ViewPostComponent } from './view-post/view-post.component';
 import { RouterModule } from '@angular/router';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { CurrencyPipe } from '../shared/currency.pipe';
+import { HeaderComponent } from './header/header.component';
+import { PhonePipe } from '../shared/phone.pipe';
 
 
 @NgModule({
@@ -18,13 +21,16 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     FiltersComponent,
     PostsComponent,
     HomeComponent,
-    ViewPostComponent
+    ViewPostComponent,
+    CurrencyPipe,
+    PhonePipe
   ],
   imports: [
     CommonModule,
     AngularMaterialModule,
     RouterModule,
-    SlickCarouselModule
+    SlickCarouselModule,
+    HeaderComponent
   ],
 })
 export class HomeModule { }
