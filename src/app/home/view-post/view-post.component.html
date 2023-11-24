@@ -14,8 +14,8 @@
       </mat-card>
       <div class="w-96">
         <mat-card class="example-card w-full mr-2 ml-2 p-2">
+          <h5 class="italic font-semibold">Modelo</h5>
           <h5>{{vehicle?.brand?.brand}} {{vehicle?.model}}</h5>
-          <h5>{{vehicle?.price | priceFormat}} </h5>
           <h5>Ano: {{vehicle?.year}}</h5>
 
           <div class="mt-2" *ngIf="vehicle?.description">
@@ -30,11 +30,8 @@
             </div>
           </div>
 
-          <div *ngIf="contacts && contacts.length" class="mt-2">
-            <h5 class="italic font-semibold">Entre em contato</h5>
-            <div *ngFor="let contact of contacts">
-              <p>{{contact.name}} - {{contact.phone | phoneFormat}}</p>
-            </div>
+          <div class="mt-2 bg-slate-300 fit rounded-sm p-1 w-fit my-1">
+            <h5 class="font-semibold text-xl">{{vehicle?.price | priceFormat}} </h5>
           </div>
         </mat-card>
       </div>

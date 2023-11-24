@@ -32,4 +32,12 @@ export class ConnectionService {
   delete(route: string, id: number): Observable<any> {
     return this.http.delete<any>(this.apiUrl + route + '/' + id);
   }
+
+  getYearAndPrice(route: string): Observable<any> {
+    return this.http.get<any>(this.apiUrl + route);
+  }
+
+  get(route: string, data : any): Observable<any> {
+    return this.http.get<any>(this.apiUrl + route, { params: data });
+  }
 }

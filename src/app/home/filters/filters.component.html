@@ -1,26 +1,25 @@
-Filtros
-<div>
-    <p>ano de - ano até</p>
-    <mat-slider class="my-slider" min="0" max="500">
-        <input value="100" matSliderStartThumb>
-        <input value="400" matSliderEndThumb>
-    </mat-slider>
+<div class="flex">
+    <div class="flex mr-12 items-center">
+        <p class="mr-2">Ano</p>
+        <div class="flex flex-col">
+            <!-- <small>{{sliderMinYear.value}} até {{sliderMaxYear.value}}</small> -->
+            <mat-slider class="my-slider" [min]="minYear" [max]="maxYear" discrete (input)="onSliderChange($event, 'year')">
+                <input [value]="minYear" matSliderStartThumb>
+                <input [value]="maxYear" matSliderEndThumb>
+            </mat-slider>
+        </div>
+    </div>
+    
+    <div class="flex items-center ">
+        <p class="mr-2">Valor</p>
+        <div class="flex flex-col">
+            <mat-slider class="my-slider" [min]="minPrice" [max]="maxPrice" discrete (input)="onSliderChange($event, 'price')">
+                <input [value]="minPrice" matSliderStartThumb>
+                <input [value]="maxPrice" matSliderEndThumb>
+            </mat-slider>
+        </div>
+    </div>
 
-</div>
-
-<div>
-    <p>valor de - valor até</p>
-    <mat-slider class="my-slider" min="0" max="500">
-        <input value="50" matSliderStartThumb>
-        <input value="300" matSliderEndThumb>
-    </mat-slider>
-</div>
-<div>
-    <p>valor de - valor até</p>
-    <mat-slider class="my-slider" min="0" max="500">
-        <input value="50" matSliderStartThumb>
-        <input value="300" matSliderEndThumb>
-    </mat-slider>
 </div>
 
 
