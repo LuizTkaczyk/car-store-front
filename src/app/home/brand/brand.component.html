@@ -1,9 +1,11 @@
-Marcas
-<mat-list>
-    <mat-list-item><button>Fiat</button></mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item><button>Ford</button></mat-list-item>
-    <mat-divider></mat-divider> 
-    <mat-list-item><button>Volks</button></mat-list-item>
-    <mat-divider></mat-divider>
-</mat-list>
+<div class="flex items-center">
+    <div class="mr-1">
+        <p>Marca</p>
+    </div>
+    <div>
+        <select class="rounded-md w-36" (change)="changeBrand($event)">
+            <option selected value="0">Todos</option>
+            <option  *ngFor="let brand of brands | async" [value]="brand.id" >{{brand.brand}}</option>
+        </select>
+    </div>
+</div>

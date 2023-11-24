@@ -1,13 +1,11 @@
-<div class="pt-44 pb-3 h-full box-border">
+<div class="pt-44 pb-16 h-full overflow-hidden box-border mb-1">
   <app-header></app-header>
-  <div class="h-full flex" >
-    <aside class="bg-gray-100 w-72 p-4 m-1 h-full overflow-auto mt-2 rounded-md max-height">
-      <app-brand></app-brand>
-      <hr />
-      <app-category></app-category>
-      <hr />
+  <div class="h-full flex-col w-4/5 m-auto">
+    <mat-toolbar class="">
+      <app-brand class="mr-12"></app-brand>
+      <app-category class="mr-12"></app-category>
       <app-filters></app-filters>
-    </aside>
+    </mat-toolbar>
     <main class="w-full rounded-md overflow-auto h-full mt-2">
       <router-outlet></router-outlet>
     </main>

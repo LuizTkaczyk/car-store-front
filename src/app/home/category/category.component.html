@@ -1,10 +1,12 @@
-Categoria
-<mat-list>
-    <mat-list-item><button>Carro</button></mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item><button>Moto</button></mat-list-item>
-    <mat-divider></mat-divider> 
-    <mat-list-item><button>Caminhão</button></mat-list-item>
-    <mat-divider></mat-divider>
+<div class="flex items-center">
+    <div class="mr-1">
+        <p>Categoria</p>
+    </div>
+    <div>
+        <select class="rounded-md w-36" (change)="changeCategory($event)">
+            <option selected value="0">Todos</option>
+            <option *ngFor="let category of categories | async" [value]="category.id">{{category.category}}</option>
+        </select>
+    </div>
 
-</mat-list>
+</div>
