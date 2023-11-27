@@ -396,6 +396,10 @@ export class AddComponent implements OnInit {
       width: '300px',
       enterAnimationDuration,
       exitAnimationDuration,
+      data: {
+        title: 'Excluir',
+        message: 'Tem certeza que deseja excluir?'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

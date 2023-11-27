@@ -76,7 +76,6 @@ export class PostsComponent implements OnInit {
 
   callPosts(){
     this.changes.callPosts.subscribe(( call: Boolean) => {
-      console.log(this.currentPage, this.lastPage)
       if(this.currentPage === this.lastPage) return;
       this.getVehiclesPost();
     })
@@ -84,7 +83,6 @@ export class PostsComponent implements OnInit {
 
   aplyFilters() {
     this.changes.changeFilter.subscribe((filter: any) => {
-      console.log(filter)
       if (this.isEmpty(filter)) return;
       
       this.withFilter = true;
