@@ -1,17 +1,21 @@
 <div class="flex flex-wrap justify-center">
-  <mat-card class="example-card w-80 m-4" *ngFor="let post of posts">
+  <mat-card class="example-card w-80 m-4" *ngFor="let post of posts" [@fadeIn]>
     <ngx-slick-carousel class="slick" #slickModal="slick-carousel" [config]="slideConfig">
-      <div ngxSlickItem *ngFor="let image of post.images">
-        <img class="h-52 object-cover" [src]="'http://localhost:8000'+image.url" width="100%">
+      <div ngxSlickItem *ngFor="let image of post.images" [@loading]="imageLoadingState">
+        <img class="h-52 object-cover" [src]="'http://localhost:8000'+image.url" width="100%" (load)="onImageLoad()">
       </div>
     </ngx-slick-carousel>
 
     <a [routerLink]="['/view-post', post.id]" routerLinkActive="active">
       <mat-card-content class="text-center">
-        <p>{{post.brand.brand}} {{post.model}}</p>
+        <p>{{post.brand.brand}} {{post.model}} {{post.year}}</p>
         <p>{{post.description}}</p>
         <p>{{post.price  | priceFormat}}</p>
       </mat-card-content>
     </a>
   </mat-card>
+
+  <div *ngIf="posts.length == 0"> 
+    <p class="text-center">Nenhum veículo encontrado</p>
+  </div>
 </div>

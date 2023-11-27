@@ -1,11 +1,10 @@
-import { Vehicle } from './../model/vehicle.model';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from '../shared/modal/modal.component';
 import { ConnectionService } from 'src/app/shared/connection.service';
-import { Observable } from 'rxjs';
 import { Routes } from 'src/app/shared/constansts';
 import { MessageService } from '../shared/message.service';
+import { ModalComponent } from '../shared/modal/modal.component';
+import { Vehicle } from './../model/vehicle.model';
 
 @Component({
   selector: 'app-list',
@@ -34,6 +33,10 @@ export class ListComponent implements OnInit {
       width: '300px',
       enterAnimationDuration,
       exitAnimationDuration,
+      data: {
+        title: 'Excluir',
+        message: 'Tem certeza que deseja excluir?'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -1,9 +1,9 @@
 <div class="flex items-center">
-    <div class="mr-1">
+    <div class="mr-1 text-lg">
         <p>Marca</p>
     </div>
     <div>
-        <select class="rounded-md w-36" (change)="changeBrand($event)">
+        <select class="rounded-md w-36 text-lg" (change)="changeBrand($event)">
             <option selected value="0">Todos</option>
             <option  *ngFor="let brand of brands | async" [value]="brand.id" >{{brand.brand}}</option>
         </select>

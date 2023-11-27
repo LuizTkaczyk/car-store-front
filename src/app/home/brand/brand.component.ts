@@ -1,9 +1,9 @@
-import { Brand } from './../../admin/model/brand.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChangesService } from 'src/app/shared/changes.service';
 import { ConnectionService } from 'src/app/shared/connection.service';
 import { Routes } from 'src/app/shared/constansts';
+import { Brand } from './../../admin/model/brand.model';
 
 @Component({
   selector: 'app-brand',
@@ -19,17 +19,10 @@ export class BrandComponent implements OnInit {
     this.getBrands();
   }
   getBrands() {
-    this.brands = this.service.getAll(Routes.BRAND);
+    this.brands = this.service.getAll(Routes.BRAND_HOME);
   }
 
   changeBrand(event: any = 0) {
-    // let brand = {
-    //   brandId: event.target.value
-    // }
-    // this.service.get(Routes.CHANGE_BRAND, brand).subscribe(data => {
-    //   console.log(data)
-    // })
-
-    this.changes.changeBrandId(event.target.value);
+    this.changes.filter({brandId:event.target.value});
   }
 }

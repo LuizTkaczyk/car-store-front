@@ -1,9 +1,9 @@
-<div class="flex items-center">
+<div class="flex items-center text-lg">
     <div class="mr-1">
         <p>Categoria</p>
     </div>
     <div>
-        <select class="rounded-md w-36" (change)="changeCategory($event)">
+        <select class="rounded-md w-36 text-lg" (change)="changeCategory($event)">
             <option selected value="0">Todos</option>
             <option *ngFor="let category of categories | async" [value]="category.id">{{category.category}}</option>
         </select>

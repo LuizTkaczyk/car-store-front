@@ -1,13 +1,14 @@
-import { MessageService } from './../shared/message.service';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ConnectionService } from 'src/app/shared/connection.service';
-import { Routes } from 'src/app/shared/constansts'; import { Category } from '../model/category.model';
+import { Routes } from 'src/app/shared/constansts';
 import { Brand } from '../model/brand.model';
-import { MatDialog } from '@angular/material/dialog';
+import { Category } from '../model/category.model';
 import { ModalComponent } from '../shared/modal/modal.component';
+import { MessageService } from './../shared/message.service';
 ;
 
 @Component({
@@ -217,6 +218,10 @@ export class EditComponent implements OnInit {
       width: '300px',
       enterAnimationDuration,
       exitAnimationDuration,
+      data: {
+        title: 'Excluir',
+        message: 'Tem certeza que deseja excluir?'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

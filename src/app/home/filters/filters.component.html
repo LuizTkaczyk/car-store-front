@@ -1,21 +1,20 @@
 <div class="flex">
-    <div class="flex mr-12 items-center">
+    <div class="flex mr-12 items-center text-lg">
         <p class="mr-2">Ano</p>
-        <div class="flex flex-col">
-            <!-- <small>{{sliderMinYear.value}} até {{sliderMaxYear.value}}</small> -->
-            <mat-slider class="my-slider" [min]="minYear" [max]="maxYear" discrete (input)="onSliderChange($event, 'year')">
-                <input [value]="minYear" matSliderStartThumb>
-                <input [value]="maxYear" matSliderEndThumb>
+        <div class="flex flex-col text-lg">
+            <mat-slider class="my-slider" [min]="minYear" [max]="maxYear"  discrete>
+                <input [value]="minYear" matSliderStartThumb (valueChange)="minYearEvent($event)">
+                <input [value]="maxYear" matSliderEndThumb (valueChange)="maxYearEvent($event)">
             </mat-slider>
         </div>
     </div>
     
-    <div class="flex items-center ">
+    <div class="flex items-center text-lg">
         <p class="mr-2">Valor</p>
-        <div class="flex flex-col">
-            <mat-slider class="my-slider" [min]="minPrice" [max]="maxPrice" discrete (input)="onSliderChange($event, 'price')">
-                <input [value]="minPrice" matSliderStartThumb>
-                <input [value]="maxPrice" matSliderEndThumb>
+        <div class="flex flex-col text-lg">
+            <mat-slider class="my-slider" [min]="minPrice" [max]="maxPrice" [step]="1000" discrete>
+                <input [value]="minPrice" matSliderStartThumb (valueChange)="minPriceEvent($event)">
+                <input [value]="maxPrice" matSliderEndThumb (valueChange)="maxPriceEvent($event)">
             </mat-slider>
         </div>
     </div>

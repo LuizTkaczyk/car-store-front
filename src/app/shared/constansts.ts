@@ -9,4 +9,8 @@ export const Routes =  {
     CHANGE_CATEGORY : 'change-category',
     CHANGE_YEAR : 'change-year',
     CHANGE_PRICE : 'change-price',
+    FILTERED_VEHICLES : 'filtered-vehicles',
+    CATEGORY_HOME : 'category-home',
+    BRAND_HOME : 'brand-home',
+    LOGIN: 'login',
 }
