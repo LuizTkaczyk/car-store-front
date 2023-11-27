@@ -1,15 +1,15 @@
-import { Observable } from 'rxjs';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalComponent } from '../shared/modal/modal.component';
+import { Observable } from 'rxjs';
 import { ConnectionService } from 'src/app/shared/connection.service';
 import { Routes } from 'src/app/shared/constansts';
-import { Category } from '../model/category.model';
 import { Brand } from '../model/brand.model';
-import { MessageService } from '../shared/message.service';
+import { Category } from '../model/category.model';
 import { Information } from '../model/information.model';
+import { MessageService } from '../shared/message.service';
+import { ModalComponent } from '../shared/modal/modal.component';
 
 @Component({
   selector: 'app-add',
@@ -223,7 +223,7 @@ export class AddComponent implements OnInit {
   ];
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService, private changes: ChangeDetectorRef) {
+  constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {

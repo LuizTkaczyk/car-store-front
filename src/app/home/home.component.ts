@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { ChangesService } from '../shared/changes.service';
 
 @Component({
   selector: 'app-home',
@@ -8,5 +7,11 @@ import { filter } from 'rxjs';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
- 
+  selector: string = ".main-panel";
+  
+  constructor(private changes: ChangesService) { }
+  onScroll() {
+    this.changes.callPost(true);
+  }
+
 }

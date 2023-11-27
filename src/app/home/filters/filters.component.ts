@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSliderChange } from '@angular/material/slider';
+import { ChangesService } from 'src/app/shared/changes.service';
 import { ConnectionService } from 'src/app/shared/connection.service';
 import { Routes } from 'src/app/shared/constansts';
 
@@ -14,9 +14,13 @@ export class FiltersComponent implements OnInit {
   maxYear: number = 0;
   minPrice: number = 0;
   maxPrice: number = 0;
-  formattedSliderValue ='';
 
-  constructor(private service: ConnectionService) { }
+  priceTo : number = 0;
+  priceFrom : number = 0;
+  yearTo : number = 0;
+  yearFrom : number = 0;
+
+  constructor(private service: ConnectionService,private changes: ChangesService) { }
   ngOnInit(): void {
     this.getYearAndPrice();
   }
@@ -30,11 +34,23 @@ export class FiltersComponent implements OnInit {
     })
   }
 
-  formatLabel(value: number): string {
-    return 'R$ '+ value;
+  minPriceEvent(event : any) {
+    this.priceFrom = event;
+    this.changes.filter( {priceFrom: event,priceTo: this.priceTo ? this.priceTo : this.maxPrice});
   }
 
-  onSliderChange(event: any, type: string) {
-    console.log(event.target.value)
+  maxPriceEvent(event : any) {
+    this.priceTo = event;
+    this.changes.filter({priceFrom: this.priceFrom ? this.priceFrom : this.minPrice, priceTo: event});
+  }
+
+  maxYearEvent(event : any) {
+    this.yearTo = event;
+    this.changes.filter({yearTo: event,yearFrom: this.yearFrom ? this.yearFrom : this.minYear});
+  }
+
+  minYearEvent(event : any) {
+    this.yearFrom = event;
+    this.changes.filter( {yearFrom: event,yearTo: this.yearTo ? this.yearTo : this.maxYear});
   }
 }

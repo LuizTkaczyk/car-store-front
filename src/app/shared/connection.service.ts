@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, delay } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +39,15 @@ export class ConnectionService {
 
   get(route: string, data : any): Observable<any> {
     return this.http.get<any>(this.apiUrl + route, { params: data });
+  }
+
+  getFilteredVehicles(route:string, filters: any): Observable<any> {
+    return this.http.get(`${this.apiUrl + route}?${this.buildQueryParams(filters)}`);
+  }
+
+  private buildQueryParams(filters: any): string {
+    return Object.keys(filters)
+      .map(key => `${key}=${filters[key]}`)
+      .join('&');
   }
 }

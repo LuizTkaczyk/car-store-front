@@ -8,11 +8,17 @@ export class ChangesService {
 
   constructor() { }
 
-  private changes = new BehaviorSubject<string>(''); // Valor inicial vazio
-  currentChangeId = this.changes.asObservable();
+  private changes = new BehaviorSubject<object>({});
+  private posts = new BehaviorSubject<Boolean>(false);
+  changeFilter = this.changes.asObservable();
+  callPosts = this.posts.asObservable();
 
-  changeBrandId(changeId: string) {
+
+  filter(changeId: object) {
     this.changes.next(changeId);
   }
 
+  callPost(call : Boolean = false) {
+    this.posts.next(call);
+  }
 }
