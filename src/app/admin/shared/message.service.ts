@@ -14,7 +14,8 @@ export class MessageService {
                 timeOut: 5000,
                 positionClass: 'toast-top-right',
                 preventDuplicates: true,
-                tapToDismiss: true
+                tapToDismiss: true,
+                countDuplicates : true
             };
         }
 

@@ -19,9 +19,9 @@ const routes: Routes = [
 
   { path: 'login', component: LoginComponent},
   { path: 'admin', component: PanelComponent,canActivate: [authGuard], children: [
-    { path: 'lista', component: ListComponent },
-    { path: 'editar/:type/:id', component: EditComponent },
-    { path: 'adicionar/:type', component: AddComponent },
+    { path: 'lista', component: ListComponent, canActivate: [authGuard] },
+    { path: 'editar/:type/:id', component: EditComponent , canActivate: [authGuard]},
+    { path: 'adicionar/:type', component: AddComponent, canActivate: [authGuard] },
   ]},
   { path: '**', redirectTo: '/home' }
 ];

@@ -5,17 +5,17 @@
     <div class="h-full flex">
         <aside class="bg-gray-100 w-72 p-4 m-1 h-full overflow-auto mt-2 rounded-md max-height">
             <mat-list>
-                <mat-list-item><a [routerLink]="['lista']">Lista de veículos</a></mat-list-item>
+                <mat-list-item [class.mat-list-item-selected]="selectedItemIndex === 0" (click)="selectItem(0)"><a [routerLink]="['lista']">Lista de veículos</a></mat-list-item>
                 <mat-divider></mat-divider>
-                <mat-list-item><a [routerLink]="['adicionar', 'veiculos']">Cadastro de veículos</a></mat-list-item>
+                <mat-list-item [class.mat-list-item-selected]="selectedItemIndex === 1" (click)="selectItem(1)"><a [routerLink]="['adicionar', 'veiculos']">Cadastro de veículos</a></mat-list-item>
                 <mat-divider></mat-divider>
-                <mat-list-item><a [routerLink]="['adicionar', 'marcas']">Cadastro de marcas</a></mat-list-item>
+                <mat-list-item [class.mat-list-item-selected]="selectedItemIndex === 2" (click)="selectItem(2)"><a [routerLink]="['adicionar', 'marcas']">Cadastro de marcas</a></mat-list-item>
                 <mat-divider></mat-divider>
-                <mat-list-item><a [routerLink]="['adicionar', 'categorias']">Cadastro de Categorias</a></mat-list-item>
+                <mat-list-item [class.mat-list-item-selected]="selectedItemIndex === 3" (click)="selectItem(3)"><a [routerLink]="['adicionar', 'categorias']">Cadastro de Categorias</a></mat-list-item>
                 <mat-divider></mat-divider>
-                <mat-list-item><a [routerLink]="['adicionar', 'informacoes']">Informações da empresa</a></mat-list-item>
+                <mat-list-item [class.mat-list-item-selected]="selectedItemIndex === 4" (click)="selectItem(4)"><a [routerLink]="['adicionar', 'informacoes']">Informações da empresa</a></mat-list-item>
                 <mat-divider></mat-divider>
-                <mat-list-item><a class="cursor-pointer" (click)="logout('100ms', '150ms')">Sair</a></mat-list-item>
+                <mat-list-item [class.mat-list-item-selected]="selectedItemIndex === 5" (click)="selectItem(5)"><a class="cursor-pointer" (click)="logout('100ms', '150ms')">Sair</a></mat-list-item>
                 <mat-divider></mat-divider>
             </mat-list>
         </aside>
