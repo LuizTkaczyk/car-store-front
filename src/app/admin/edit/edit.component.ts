@@ -188,6 +188,10 @@ export class EditComponent implements OnInit {
           this.loadingSave = false;
         }, error => {
           this.messageService.show('Erro ao editar veículo', 'error');
+          if(error.status == 401){
+            this.messageService.show('Não autenticado', 'error');
+            this.router.navigate(['/login']);
+          }
         })
         break;
       case 'marca':
@@ -196,6 +200,10 @@ export class EditComponent implements OnInit {
           this.router.navigate(['/admin/adicionar/marcas']);
         }, error => {
           this.messageService.show('Erro ao editar marca', 'error');
+          if(error.status == 401){
+            this.messageService.show('Não autenticado', 'error');
+            this.router.navigate(['/login']);
+          }
         })
         break;
 
@@ -205,6 +213,10 @@ export class EditComponent implements OnInit {
           this.router.navigate(['/admin/adicionar/categorias']);
         }, error => {
           this.messageService.show('Erro ao editar categoria', 'error');
+          if(error.status == 401){
+            this.messageService.show('Não autenticado', 'error');
+            this.router.navigate(['/login']);
+          }
         })
         break;
 

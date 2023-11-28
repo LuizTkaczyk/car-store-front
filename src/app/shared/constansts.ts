@@ -13,4 +13,5 @@ export const Routes =  {
     CATEGORY_HOME : 'category-home',
     BRAND_HOME : 'brand-home',
     LOGIN: 'login',
+    LOGOUT : 'logout'
 }
