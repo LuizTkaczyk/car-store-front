@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ChangesService } from 'src/app/shared/changes.service';
 import { ConnectionService } from 'src/app/shared/connection.service';
 import { Routes } from 'src/app/shared/constansts';
@@ -26,25 +27,23 @@ export class PostsComponent implements OnInit {
   page = 0;
   currentPage = 1;
   lastPage = 0;
-  imageLoadingState: 'loading' | 'loaded' = 'loading';
+  imageLoading = true;
   withFilter: boolean = false;
   callPostsEvent: Boolean = true;
 
-  constructor(private service: ConnectionService, private changes: ChangesService) { }
+  constructor(private service: ConnectionService, private changes: ChangesService,private spinner: NgxSpinnerService) { }
   ngOnInit(): void {
     this.aplyFilters();
-    this.callPosts()
-  }
-
-  onImageLoad() {
-    this.imageLoadingState = 'loaded';
+    this.callPosts();
+   
   }
   isEmpty(object: Record<string, any>): boolean {
     const keys = Object.keys(object);
     return keys.length === 0;
   }
 
-  getVehiclesPost() {;
+  getVehiclesPost() {
+    this.spinner.show('primary');
     if(this.callPostsEvent){
         let filters = {
           brandId: this.brand,
@@ -58,16 +57,18 @@ export class PostsComponent implements OnInit {
         }
         
         this.service.getFilteredVehicles(Routes.FILTERED_VEHICLES, filters).subscribe(data => {
+
           if(!this.withFilter){
             this.posts.push(...data.data);
           }else{
             if(data.current_page === 1){
+              
               this.posts = data.data
             }else if(data.current_page > 1){
               this.posts.push(...data.data);
             }
           }
-
+          this.spinner.hide('primary');
           this.currentPage = data.current_page;
           this.lastPage = data.last_page;
         })

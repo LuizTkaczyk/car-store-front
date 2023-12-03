@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConnectionService } from 'src/app/shared/connection.service';
 import { Routes } from 'src/app/shared/constansts';
@@ -9,17 +9,18 @@ import { Vehicle } from './../model/vehicle.model';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ListComponent implements OnInit {
   displayedColumns: string[] = ['brand', 'model','category', 'year', 'price','edit'];
   vehicles : Vehicle[] = [];
   loading: boolean = false;
-  
+
   page = 0;
   itemsPerPage = 10;
   totalItems  = 0;
-  
+
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
 
@@ -40,7 +41,7 @@ export class ListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      
+
       if(result){
         let itemToDelete = this.vehicles.find(item => item.id == id);
         if (itemToDelete) {
@@ -67,7 +68,7 @@ export class ListComponent implements OnInit {
       this.loading = false;
     });
   }
-  
+
   handlePageEvent(event: any) {
     this.page = event.pageIndex + 1; // O índice da página começa em 0
     this.itemsPerPage = event.pageSize;

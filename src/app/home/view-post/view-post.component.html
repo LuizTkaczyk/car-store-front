@@ -1,10 +1,8 @@
-<div class="pt-44 pb-3 h-full box-border">
+<div class="pt-24 pb-3 h-full box-border">
   <app-header></app-header>
-
   <div class="m-auto">
-    <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" [routerLink]="['']">Voltar</button>
-    
-    <div class="flex justify-center">
+
+    <div *ngIf="!loading; else load" class="flex justify-center">
       <mat-card class="example-card post mr-2 ml-2 ">
         <ngx-slick-carousel class="slick" #slickModal="slick-carousel" [config]="slideConfig">
           <div ngxSlickItem *ngFor="let image of vehicle?.images">
@@ -34,8 +32,26 @@
             <h5 class="font-semibold text-xl">{{vehicle?.price | priceFormat}} </h5>
           </div>
         </mat-card>
+        <mat-card class="example-card w-full mr-2 ml-2 p-2 mt-2">
+          <h5 class="italic font-semibold">Contatos</h5>
+          <div *ngFor="let contact of contacts">
+            <li class="flex items-center mb-1">
+              <span>{{contact.name}} - </span>
+              <a target="_blank" class="cursor-pointer ml-2 mr-2"
+                href="https://wa.me/{{contact.phone}}?text=Olá%20{{contact.name}}">
+                {{contact.phone | phoneFormat}}
+              </a>
+              <img class="w-6" src="../../../assets/icons/whatsapp-icon-seeklogo.com.svg" alt="Icone Whatsapp">
+            </li>
+          </div>
+        </mat-card>
       </div>
+
     </div>
 
+    <ng-template #load>
+      <ngx-spinner bdColor="rgba(0, 0, 0, 0.1)" size="default" type="line-scale" [fullScreen]="true"
+        [name]="'primary'"></ngx-spinner>
+    </ng-template>
   </div>
 </div>

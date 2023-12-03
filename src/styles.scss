@@ -4,5 +4,35 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+@font-face {
+  font-family: 'TitilliumWeb-Black';
+  src: url('./assets/fonts/TitilliumWeb-SemiBoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'TitilliumWeb-regular';
+  src: url('./assets/fonts/TitilliumWeb-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'TitilliumWeb-semibold';
+  src: url('./assets/fonts/TitilliumWeb-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'TitilliumWeb-light';
+  src: url('./assets/fonts/TitilliumWeb-Light.ttf') format('truetype');
+}
+
+body {
+  margin: 0;
+  font-family: "TitilliumWeb-Black", sans-serif;
+}
+
+.font{
+  font-family: "TitilliumWeb-Black", sans-serif;
+}

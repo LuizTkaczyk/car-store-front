@@ -9,6 +9,7 @@ import { authGuard } from './admin/shared/Auth.guard';
 import { HomeComponent } from './home/home.component';
 import { PostsComponent } from './home/posts/posts.component';
 import { ViewPostComponent } from './home/view-post/view-post.component';
+import { ContactComponent } from './home/contact/contact.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: '', component: PostsComponent },
   ]},
   { path: 'view-post/:id', component: ViewPostComponent },
+  { path: 'contact', component: ContactComponent },
 
   { path: 'login', component: LoginComponent},
   { path: 'admin', component: PanelComponent,canActivate: [authGuard], children: [

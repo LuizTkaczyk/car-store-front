@@ -105,18 +105,18 @@
             <p class="{{ loadingSave ? ' mr-2' : ''}}">{{ loadingSave ? 'Salvando' : 'Salvar' }}</p>
             <mat-spinner *ngIf="loadingSave" diameter="19"></mat-spinner>
           </div></button>
-        
+
           <button disabled="{{ loadingDelete || loadingSave}}" mat-raised-button color="warn" (click)="openDialog('100ms', '150ms')">
             <div class="flex items-center">
               <p class="{{ loadingDelete ? ' mr-2' : ''}}">{{ loadingDelete ? 'Excluindo' : 'Excluir' }}</p>
               <mat-spinner *ngIf="loadingDelete" diameter="19"></mat-spinner>
             </div>
           </button>
-         
+
       </mat-card-actions>
     </mat-card>
   </div>
-  
+
   <!-- marcas -->
   <div *ngIf="activeRoute == 'marca'" class="m-auto flex justify-center pt-4">
     <mat-card class="w-2/4">
@@ -135,7 +135,7 @@
       </mat-card-actions>
     </mat-card>
   </div>
-  
+
   <!-- categorias -->
   <div *ngIf="activeRoute == 'categoria'" class="m-auto flex justify-center pt-4">
     <mat-card class="w-2/4">
@@ -154,7 +154,7 @@
       </mat-card-actions>
     </mat-card>
   </div>
-  
+
   <!-- informacoes -->
   <div *ngIf="activeRoute == 'informacoes'" class="m-auto flex justify-center pt-4">
     <mat-card class="w-2/4">

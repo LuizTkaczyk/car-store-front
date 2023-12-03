@@ -37,7 +37,7 @@ export class ConnectionService {
     return this.http.get<any>(this.apiUrl + route);
   }
 
-  get(route: string, data : any): Observable<any> {
+  get(route: string, data : any = {}): Observable<any> {
     return this.http.get<any>(this.apiUrl + route, { params: data });
   }
 
@@ -49,5 +49,9 @@ export class ConnectionService {
     return Object.keys(filters)
       .map(key => `${key}=${filters[key]}`)
       .join('&');
+  }
+
+  refreshToken(route:string): Observable<any> {
+    return this.http.get<any>(this.apiUrl + route);
   }
 }

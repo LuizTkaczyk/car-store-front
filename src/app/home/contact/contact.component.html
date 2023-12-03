@@ -1,0 +1,22 @@
+<div class="flex pb-3 h-full box-border">
+  <app-header></app-header>
+  <div *ngIf="info" class="m-auto">
+
+    <p class="text-9xl mb-3">{{info.company_name}}</p>
+
+    <p class="text-3xl text-center">Endereço</p>
+    <p class="text-4xl text-center mb-3">{{info.address}} - Nº{{info.address_number}}</p>
+
+    <p class="text-3xl text-center">Cidade</p>
+    <p class="text-4xl text-center mb-3">{{info.city}} - {{info.state}}</p>
+
+    <p class="text-3xl text-center">Telefone</p>
+    <p class="text-4xl text-center">{{info.company_phone | phoneFormat}}</p>
+
+  </div>
+
+  <div>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.1)" size="default" type="line-scale" [fullScreen]="true"
+      [name]="'primary'"></ngx-spinner>
+  </div>
+</div>

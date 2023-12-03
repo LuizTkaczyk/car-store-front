@@ -4,13 +4,25 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
+  
+  private authToken: string | null = null;
 
-  constructor() { }
+ 
+  setToken(token: string) {
+    this.authToken = token;
+    localStorage.setItem('token', token);
+  }
 
-  isAuthenticated(): boolean {
-    // Implemente a lógica de verificação de autenticação
-    // Retorne true se o usuário estiver autenticado, false caso contrário
-    return true; // ou false, dependendo da sua lógica
+  getToken(){
+    if(!this.authToken){
+      this.authToken = localStorage.getItem('token');
+    }
+    return this.authToken;
+  }
+
+  clearToken() {
+    this.authToken = null;
+    localStorage.removeItem('token');
   }
 
 }

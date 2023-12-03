@@ -1,8 +1,9 @@
 <div class="flex flex-wrap justify-center">
   <mat-card class="example-card w-80 m-4" *ngFor="let post of posts" [@fadeIn]>
+
     <ngx-slick-carousel class="slick" #slickModal="slick-carousel" [config]="slideConfig">
-      <div ngxSlickItem *ngFor="let image of post.images" [@loading]="imageLoadingState">
-        <img class="h-52 object-cover" [src]="'http://localhost:8000'+image.url" width="100%" (load)="onImageLoad()">
+      <div ngxSlickItem *ngFor="let image of post.images">
+        <img class="h-52 object-cover" [src]="'http://localhost:8000'+image.url" width="100%">
       </div>
     </ngx-slick-carousel>
 
@@ -10,12 +11,14 @@
       <mat-card-content class="text-center">
         <p>{{post.brand.brand}} {{post.model}} {{post.year}}</p>
         <p>{{post.description}}</p>
-        <p>{{post.price  | priceFormat}}</p>
+        <p>{{post.price | priceFormat}}</p>
       </mat-card-content>
     </a>
   </mat-card>
 
-  <div *ngIf="posts.length == 0"> 
-    <p class="text-center">Nenhum veículo encontrado</p>
+  <div>
+    <p *ngIf="posts.length == 0" class="text-center">Nenhum veículo encontrado</p>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.1)" size="default" type="line-scale" [fullScreen]="true"
+      [name]="'primary'"></ngx-spinner>
   </div>
 </div>

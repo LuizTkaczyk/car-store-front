@@ -1,4 +1,4 @@
-<div class=" flex pt-44 pb-24 h-full overflow-hidden box-border mb-1">
+<div class=" flex pt-24 pb-24 h-full overflow-hidden box-border mb-1">
   <app-header></app-header>
   <div class="h-full flex-col w-4/5 m-auto">
     <mat-toolbar class="tollbar rounded-md">
@@ -7,16 +7,10 @@
       <app-filters></app-filters>
     </mat-toolbar>
     <main class="w-full rounded-md overflow-auto h-full mt-2 main-panel">
-      <div
-        infiniteScroll
-        [infiniteScrollDistance]="2"
-        [infiniteScrollThrottle]="50"
-        [infiniteScrollContainer]="selector"
-        [fromRoot]="true"
-        (scrolled)="onScroll()"
-      >
-      <router-outlet></router-outlet>
-    </div>
+      <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+        [infiniteScrollContainer]="selector" [fromRoot]="true" (scrolled)="onScroll()">
+        <router-outlet></router-outlet>
+      </div>
     </main>
     <div class="w-full">
       <app-footer></app-footer>

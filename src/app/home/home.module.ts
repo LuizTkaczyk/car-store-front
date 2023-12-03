@@ -4,19 +4,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { NgxSpinnerModule } from "ngx-spinner";
 import { AngularMaterialModule } from '../shared/angular-material.module';
 import { CurrencyPipe } from '../shared/currency.pipe';
 import { PhonePipe } from '../shared/phone.pipe';
 import { BrandComponent } from './brand/brand.component';
 import { CategoryComponent } from './category/category.component';
 import { FiltersComponent } from './filters/filters.component';
+import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home.component';
 import { PostsComponent } from './posts/posts.component';
 import { ViewPostComponent } from './view-post/view-post.component';
-import { FooterComponent } from './footer/footer.component';
-
-
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import { FooterComponent } from './footer/footer.component';
     CurrencyPipe,
     PhonePipe,
     FooterComponent,
+    ContactComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +38,8 @@ import { FooterComponent } from './footer/footer.component';
     SlickCarouselModule,
     HeaderComponent,
     InfiniteScrollModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxSpinnerModule.forRoot()
   ],
 })
 export class HomeModule { }

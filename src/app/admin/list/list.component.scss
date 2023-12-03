@@ -21,9 +21,23 @@
     text-align: left;
 }
 
-// .mat-table-sticky th {
-//     background-color: #f2f2f2;
-//     position: sticky;
-//     top: 0;
-//     z-index: 2;
-// }
+th{
+  font-family: "TitilliumWeb-Black", sans-serif;
+}
+
+td{
+  font-family: "TitilliumWeb-regular", sans-serif;
+}
+
+.font-b{
+  font-family: "TitilliumWeb-semibold", sans-serif;
+}
+
+.mat-mdc-paginator-page-size-label, .mat-mdc-paginator-range-label , .mat-mdc-select, .mat-mdc-option, .mat-mdc-select-min-line{
+  font-family: "TitilliumWeb-regular", sans-serif !important;
+  font-size: 11pt;
+}
+
+.edit-label{
+  text-align: center !important;
+}
