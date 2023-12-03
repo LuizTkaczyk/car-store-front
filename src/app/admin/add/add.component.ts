@@ -239,7 +239,7 @@ export class AddComponent implements OnInit {
   }
 
   getInformation() {
-    
+
     this.connectionService.getById(Routes.INFORMATION, '1').subscribe(data => {
       this.information = data;
       this.files = data.logo;
@@ -247,17 +247,17 @@ export class AddComponent implements OnInit {
 
       if(data.contacts.length > 0) {
         const contactsFormArray = this.form.get('contact') as FormArray;
-  
+
         while (contactsFormArray.length !== 0) {
           contactsFormArray.removeAt(0);
         }
-    
+
         // Adicionar contatos do array recebido
         data.contacts.forEach((contact: any) => {
           contactsFormArray.push(this.setFormGroup(contact));
         });
       }
-        
+
     })
   }
 
@@ -306,6 +306,7 @@ export class AddComponent implements OnInit {
             id: [null],
             company_name: [null, [Validators.required, Validators.maxLength(30)]],
             cnpj_cpf: [null, [Validators.maxLength(14)]],
+            company_phone : [null, [Validators.required]],
             address: [null, [Validators.required, Validators.maxLength(100)]],
             address_number: [null, [Validators.required, Validators.maxLength(10)]],
             city: [null, [Validators.required, Validators.maxLength(30)]],
@@ -438,7 +439,7 @@ export class AddComponent implements OnInit {
           this.router.navigate(['/admin/lista']);
           this.loading = false;
           this.messageService.show('Veículo cadastrado com sucesso', 'success');
-          
+
         }, error => {
           this.messageService.show('Erro ao cadastrar veículo', 'error');
         })
