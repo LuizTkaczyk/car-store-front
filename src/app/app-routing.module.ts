@@ -12,11 +12,11 @@ import { ViewPostComponent } from './home/view-post/view-post.component';
 import { ContactComponent } from './home/contact/contact.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, children: [
+  //{ path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', component: HomeComponent, children: [
     { path: '', component: PostsComponent },
   ]},
-  { path: 'view-post/:id', component: ViewPostComponent },
+  { path: 'veiculo/:id', component: ViewPostComponent },
   { path: 'contact', component: ContactComponent },
 
   { path: 'login', component: LoginComponent},

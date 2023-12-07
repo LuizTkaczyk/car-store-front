@@ -4,7 +4,7 @@ export const Routes =  {
     BRAND : 'brand',
     INFORMATION: 'information',
     VEHICLES: 'vehicle',
-    YEAR_AND_PRICE : 'year-and-price',
+    FILTER_VALUES : 'filter-values',
     CHANGE_BRAND : 'change-brand',
     CHANGE_CATEGORY : 'change-category',
     CHANGE_YEAR : 'change-year',

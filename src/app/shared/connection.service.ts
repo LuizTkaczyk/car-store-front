@@ -33,7 +33,7 @@ export class ConnectionService {
     return this.http.delete<any>(this.apiUrl + route + '/' + id);
   }
 
-  getYearAndPrice(route: string): Observable<any> {
+  getFilterValues(route: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + route);
   }
 
@@ -52,6 +52,6 @@ export class ConnectionService {
   }
 
   refreshToken(route:string): Observable<any> {
-    return this.http.get<any>(this.apiUrl + route);
+    return this.http.post<any>(this.apiUrl + route,{});
   }
 }

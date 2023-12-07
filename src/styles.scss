@@ -28,11 +28,20 @@ body {
   src: url('./assets/fonts/TitilliumWeb-Light.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'TitilliumWeb-light-italic';
+  src: url('./assets/fonts/TitilliumWeb-LightItalic.ttf') format('truetype');
+}
+
 body {
   margin: 0;
-  font-family: "TitilliumWeb-Black", sans-serif;
+  font-family: "TitilliumWeb-light-italic", sans-serif;
 }
 
 .font{
   font-family: "TitilliumWeb-Black", sans-serif;
+}
+
+.font-light-italic{
+  font-family: "TitilliumWeb-light-italic", sans-serif;
 }

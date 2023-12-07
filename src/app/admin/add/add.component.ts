@@ -252,7 +252,6 @@ export class AddComponent implements OnInit {
           contactsFormArray.removeAt(0);
         }
 
-        // Adicionar contatos do array recebido
         data.contacts.forEach((contact: any) => {
           contactsFormArray.push(this.setFormGroup(contact));
         });

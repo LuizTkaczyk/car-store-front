@@ -1,25 +1,21 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-file-input',
   templateUrl: './file-input.component.html',
   styleUrls: ['./file-input.component.scss']
 })
-export class FileInputComponent implements OnInit, OnChanges {
-  
+export class FileInputComponent implements OnChanges {
+
   @Output() file = new EventEmitter<Array<any>>();
   @Output() filesToDelete = new EventEmitter<Array<any>>();
-  @Input() inputFile : Array<any> = []; 
-  
+  @Input() inputFile : Array<any> = [];
+
   files : any[] = [];
   filesToDel : any[] = [];
   selectedFile: File | null = null;
   imagePreview : any;
-  
-  ngOnInit(): void {
-    //this.files = this.inputFile;
-  }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     if (
       changes['inputFile'] &&

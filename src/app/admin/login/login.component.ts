@@ -28,15 +28,13 @@ export class LoginComponent implements OnInit {
   login(){
     this.loading = true;
     this.connectionService.post(Routes.LOGIN,this.form.value).subscribe(data => {
-      localStorage.setItem('token', data.access_token);
       this.authService.setToken(data.access_token);
-
       this.loading = false;
       this.router.navigate(['/admin/lista']);
     }, error => {
       if(error.status == 401){
         this.loading = false;
-        this.messageService.show('Email ou senha inválidos', 'error');
+        this.messageService.show('Usuario ou senha inválidos', 'error');
       }
     });
   }
