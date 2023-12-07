@@ -29,7 +29,7 @@ export class PanelComponent {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         const token = localStorage.getItem('token');
-        this.connectionService.post(Routes.LOGOUT,{token}).subscribe(data => {
+        this.connectionService.post(Routes.LOGOUT,{}).subscribe(data => {
           localStorage.removeItem('token');
           this.selectedItemIndex = null;
           this.router.navigate(['/login']);

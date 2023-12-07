@@ -8,8 +8,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { AngularMaterialModule } from '../shared/angular-material.module';
 import { CurrencyPipe } from '../shared/currency.pipe';
 import { PhonePipe } from '../shared/phone.pipe';
-import { BrandComponent } from './brand/brand.component';
-import { CategoryComponent } from './category/category.component';
 import { FiltersComponent } from './filters/filters.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -20,8 +18,6 @@ import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
-    BrandComponent,
-    CategoryComponent,
     FiltersComponent,
     PostsComponent,
     HomeComponent,

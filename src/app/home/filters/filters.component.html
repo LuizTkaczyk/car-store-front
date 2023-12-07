@@ -1,26 +1,51 @@
-<div class="flex">
-  <div class="flex mr-12 items-center text-lg">
-    <p class="mr-3 font">Ano</p>
-    <div class="flex text-lg items-center">
-      <span class="font mr-1">{{yearTo.value}}</span>
-      <mat-slider class="my-slider" [min]="minYear" [max]="maxYear">
-        <input [value]="minYear" #yearTo matSliderStartThumb (valueChange)="minYearEvent($event)">
-        <input [value]="maxYear" #yearFrom matSliderEndThumb (valueChange)="maxYearEvent($event)">
-      </mat-slider>
-      <span class="font">{{yearFrom.value}}</span>
+<div class="flex w-full mx-auto">
+  <mat-toolbar class="tollbar rounded-md flex flex-wrap justify-center">
+    <div class="flex items-center text-lg mr-12">
+      <div class="mr-1">
+        <p class="font-light-italic">Categoria</p>
+      </div>
+      <div>
+        <select class="font-light-italic rounded-md w-36 text-lg" (change)="changeCategory($event)">
+          <option selected value="0">Todos</option>
+          <option *ngFor="let category of categories" [value]="category.id">{{category.category}}</option>
+        </select>
+      </div>
     </div>
-  </div>
 
-  <div class="flex items-center text-lg">
-    <p class="mr-3 font">Valor</p>
-    <div class="flex text-lg items-center">
-      <span class="font mr-1">{{priceFrom.value}}</span>
-      <mat-slider class="my-slider" [min]="minPrice" [max]="maxPrice" [step]="1000">
-        <input [value]="minPrice" #priceFrom matSliderStartThumb (valueChange)="minPriceEvent($event)">
-        <input [value]="maxPrice" #priceTo matSliderEndThumb (valueChange)="maxPriceEvent($event)">
-      </mat-slider>
-      <span class="font">{{priceTo.value}}</span>
+    <div class="flex items-center mr-12">
+      <div class="mr-1 text-lg">
+        <p class="font-light-italic">Marca</p>
+      </div>
+      <div>
+        <select class="font-light-italic rounded-md w-36 text-lg" (change)="changeBrand($event)">
+          <option selected value="0">Todos</option>
+          <option *ngFor="let brand of brands" [value]="brand.id">{{brand.brand}}</option>
+        </select>
+      </div>
     </div>
-  </div>
 
+    <div class="flex mr-12 items-center text-lg">
+      <p class="mr-3 font-light-italic">Ano</p>
+      <div class="flex text-lg items-center">
+        <span class="font-light-italic mr-1">{{yearTo.value}}</span>
+        <mat-slider class="my-slider" [min]="minYear" [max]="maxYear">
+          <input [value]="minYear" #yearTo matSliderStartThumb (valueChange)="minYearEvent($event)">
+          <input [value]="maxYear" #yearFrom matSliderEndThumb (valueChange)="maxYearEvent($event)">
+        </mat-slider>
+        <span class="font-light-italic">{{yearFrom.value}}</span>
+      </div>
+    </div>
+
+    <div class="flex items-center text-lg">
+      <p class="mr-3 font-light-italic">Valor</p>
+      <div class="flex text-lg items-center">
+        <span class="font-light-italic mr-1">{{priceFrom.value}}</span>
+        <mat-slider class="my-slider" [min]="minPrice" [max]="maxPrice" [step]="1000">
+          <input [value]="minPrice" #priceFrom matSliderStartThumb (valueChange)="minPriceEvent($event)">
+          <input [value]="maxPrice" #priceTo matSliderEndThumb (valueChange)="maxPriceEvent($event)">
+        </mat-slider>
+        <span class="font-light-italic">{{priceTo.value}}</span>
+      </div>
+    </div>
+  </mat-toolbar>
 </div>

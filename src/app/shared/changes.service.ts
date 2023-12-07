@@ -8,6 +8,7 @@ export class ChangesService {
 
   constructor() { }
 
+  private filterSubject = new BehaviorSubject<any>({});
   private changes = new BehaviorSubject<object>({});
   private posts = new BehaviorSubject<Boolean>(false);
   changeFilter = this.changes.asObservable();
@@ -20,5 +21,13 @@ export class ChangesService {
 
   callPost(call : Boolean = false) {
     this.posts.next(call);
+  }
+
+  setFilters(filters: any): void {
+    this.filterSubject.next(filters);
+  }
+
+  getFilters(): BehaviorSubject<any> {
+    return this.filterSubject;
   }
 }

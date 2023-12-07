@@ -16,9 +16,6 @@ import { PanelComponent } from './panel/panel.component';
 import { FileInputComponent } from './shared/file-input/file-input.component';
 import { LogoInputComponent } from './shared/logo-input/logo-input.component';
 import { ModalComponent } from './shared/modal/modal.component';
-// import localePt from '@angular/common/locales/pt';
-
-// registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -47,7 +44,7 @@ import { ModalComponent } from './shared/modal/modal.component';
     provideNgxMask(),
     { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }
   ],
-  
+
 })
 export class AdminModule {
 }

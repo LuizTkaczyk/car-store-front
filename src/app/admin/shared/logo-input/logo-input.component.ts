@@ -1,21 +1,17 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-logo-input',
   templateUrl: './logo-input.component.html',
   styleUrls: ['./logo-input.component.scss']
 })
-export class LogoInputComponent implements OnInit, OnChanges {
+export class LogoInputComponent implements OnChanges {
   @Output() logoOutput = new EventEmitter<Array<any>>();
   @Input() inputLogo: any = '';
 
   file: any = undefined;
   showLogo: Boolean = true;
   selectedFile: File | null = null;
-
-  ngOnInit(): void {
-   // this.file = this.inputLogo;
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.file = changes['inputLogo'].currentValue;

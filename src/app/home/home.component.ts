@@ -8,7 +8,7 @@ import { ChangesService } from '../shared/changes.service';
 })
 export class HomeComponent {
   selector: string = ".main-panel";
-  
+
   constructor(private changes: ChangesService) { }
   onScroll() {
     this.changes.callPost(true);

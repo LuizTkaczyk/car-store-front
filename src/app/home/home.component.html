@@ -1,11 +1,9 @@
 <div class=" flex pt-24 pb-24 h-full overflow-hidden box-border mb-1">
   <app-header></app-header>
   <div class="h-full flex-col w-4/5 m-auto">
-    <mat-toolbar class="tollbar rounded-md">
-      <app-brand class="mr-12"></app-brand>
-      <app-category class="mr-12"></app-category>
+    <div class="w-full mx-auto">
       <app-filters></app-filters>
-    </mat-toolbar>
+    </div>
     <main class="w-full rounded-md overflow-auto h-full mt-2 main-panel">
       <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
         [infiniteScrollContainer]="selector" [fromRoot]="true" (scrolled)="onScroll()">

@@ -70,7 +70,7 @@ export class ListComponent implements OnInit {
   }
 
   handlePageEvent(event: any) {
-    this.page = event.pageIndex + 1; // O índice da página começa em 0
+    this.page = event.pageIndex + 1;
     this.itemsPerPage = event.pageSize;
     this.getVehicles();
   }
