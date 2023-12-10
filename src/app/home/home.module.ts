@@ -15,6 +15,7 @@ import { HomeComponent } from './home.component';
 import { PostsComponent } from './posts/posts.component';
 import { ViewPostComponent } from './view-post/view-post.component';
 import { ContactComponent } from './contact/contact.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { ContactComponent } from './contact/contact.component';
     HeaderComponent,
     InfiniteScrollModule,
     BrowserAnimationsModule,
-    NgxSpinnerModule.forRoot()
+    NgxSpinnerModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class HomeModule { }

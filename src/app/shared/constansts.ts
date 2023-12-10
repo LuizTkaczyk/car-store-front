@@ -1,9 +1,9 @@
 export const Routes =  {
     HOME :'home',
-    CATEGORY : 'category',
-    BRAND : 'brand',
+    CATEGORY : 'categories',
+    BRAND : 'brands',
     INFORMATION: 'information',
-    VEHICLES: 'vehicle',
+    VEHICLES: 'vehicles',
     FILTER_VALUES : 'filter-values',
     CHANGE_BRAND : 'change-brand',
     CHANGE_CATEGORY : 'change-category',

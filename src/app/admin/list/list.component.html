@@ -1,6 +1,10 @@
 <div class="px-4 example-container mat-elevation-z8">
   <div *ngIf="!loading && vehicles.length > 0">
     <div class="example-table-container">
+      <mat-form-field class="w-80">
+        <mat-label>Buscar por marca/categoria/modelo</mat-label>
+        <input matInput [formControl]="inputFilter">
+      </mat-form-field>
       <div class="table-header">
         <table mat-table [dataSource]="vehicles" class="example-table">
           <ng-container matColumnDef="brand">

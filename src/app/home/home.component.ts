@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ChangesService } from '../shared/changes.service';
 
 @Component({
@@ -7,9 +7,10 @@ import { ChangesService } from '../shared/changes.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  selector: string = ".main-panel";
+  @ViewChild('container') container: ElementRef | undefined;
 
   constructor(private changes: ChangesService) { }
+
   onScroll() {
     this.changes.callPost(true);
   }

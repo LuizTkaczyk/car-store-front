@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, first } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { Observable, debounceTime, first } from 'rxjs';
 import { ChangesService } from 'src/app/shared/changes.service';
 import { ConnectionService } from 'src/app/shared/connection.service';
 import { Routes } from 'src/app/shared/constansts';
@@ -25,6 +26,8 @@ export class FiltersComponent implements OnInit {
   brands: Array<any> = [];
   categories: Array<any> = [];
 
+  inputFilter = new FormControl<string>('');
+  searchFilter:string = '';
   filters: any = {
     minYear: 0,
     maxYear: 0,
@@ -37,6 +40,7 @@ export class FiltersComponent implements OnInit {
   constructor(private service: ConnectionService, private changes: ChangesService) { }
 
   ngOnInit(): void {
+    this.inputSearchFilter();
     this.getDefaultFilterValues();
   }
 
@@ -81,8 +85,16 @@ export class FiltersComponent implements OnInit {
     this.changeFilter();
   }
 
+  inputSearchFilter() {
+    this.inputFilter.valueChanges.pipe(debounceTime(800)).subscribe(value => {
+      this.searchFilter = value ?? '';
+      this.changeFilter();
+    })
+  }
+
   changeFilter() {
     this.filters = {
+      searchFilter: this.searchFilter,
       brandId: this.brandId ?? 0,
       categoryId: this.categoryId ?? 0,
       priceFrom: this.priceFrom ? this.priceFrom : this.minPrice,
