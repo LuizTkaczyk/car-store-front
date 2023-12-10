@@ -5,6 +5,9 @@ import { Routes } from 'src/app/shared/constansts';
 import { MessageService } from '../shared/message.service';
 import { ModalComponent } from '../shared/modal/modal.component';
 import { Vehicle } from './../model/vehicle.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { debounceTime, switchMap } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
@@ -13,19 +16,27 @@ import { Vehicle } from './../model/vehicle.model';
   encapsulation: ViewEncapsulation.None
 })
 export class ListComponent implements OnInit {
-  displayedColumns: string[] = ['brand', 'model','category', 'year', 'price','edit'];
-  vehicles : Vehicle[] = [];
+  displayedColumns: string[] = ['brand', 'model', 'category', 'year', 'price', 'edit'];
+  vehicles: Vehicle[] = [];
+
+  dataSource = new MatTableDataSource(this.vehicles);
+
   loading: boolean = false;
 
   page = 0;
   itemsPerPage = 10;
-  totalItems  = 0;
+  totalItems = 0;
 
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
 
-  constructor(public dialog: MatDialog, private connectionService: ConnectionService,private messageService: MessageService) {}
+  inputFilter = new FormControl<string>('');
+
+  constructor(public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService) {
+  }
+
   ngOnInit(): void {
+    this.applyFilter();
     this.getVehicles();
   }
 
@@ -42,7 +53,7 @@ export class ListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
-      if(result){
+      if (result) {
         let itemToDelete = this.vehicles.find(item => item.id == id);
         if (itemToDelete) {
           itemToDelete.deleting = true;
@@ -60,7 +71,7 @@ export class ListComponent implements OnInit {
     });
   }
 
-  getVehicles(){
+  getVehicles() {
     this.loading = true;
     this.connectionService.getAll(Routes.VEHICLES, this.page, this.itemsPerPage).subscribe(response => {
       this.vehicles = response.data;
@@ -74,4 +85,16 @@ export class ListComponent implements OnInit {
     this.itemsPerPage = event.pageSize;
     this.getVehicles();
   }
+
+  applyFilter() {
+    this.loading = true;
+    this.inputFilter.valueChanges.pipe(
+      debounceTime(800),
+      switchMap(value => this.connectionService.getFilteredVehicles(Routes.VEHICLES, { name: value }))).subscribe(response => {
+        this.vehicles = response.data;
+        this.totalItems = response.total;
+        this.loading = false;
+      });
+  }
 }
+
