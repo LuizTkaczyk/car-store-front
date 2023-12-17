@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ChangesService } from 'src/app/shared/changes.service';
 import { ConnectionService } from 'src/app/shared/connection.service';
 import { Routes } from 'src/app/shared/constansts';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-view-post',
@@ -17,6 +18,7 @@ export class ViewPostComponent implements OnInit {
   contacts: any = null;
   slideConfig = {"slidesToShow": 1, "slidesToScroll": 1, "dots": true, "autoplay": true, "autoplaySpeed": 3000, "arrows": true};
   loading = false;
+  imagePath = environment.imagePath;
 
   constructor(private connectionService: ConnectionService, private route: ActivatedRoute, private spinner: NgxSpinnerService, private changes: ChangesService) { }
 

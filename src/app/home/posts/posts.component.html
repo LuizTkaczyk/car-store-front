@@ -3,7 +3,7 @@
 
     <ngx-slick-carousel class="slick" #slickModal="slick-carousel" [config]="slideConfig">
       <div ngxSlickItem *ngFor="let image of post.images">
-        <img class="h-52 object-cover" [src]="'http://localhost:8000'+image.url" width="100%">
+        <img class="h-52 object-cover" [src]="imagePath+image.url" width="100%">
       </div>
     </ngx-slick-carousel>
 
