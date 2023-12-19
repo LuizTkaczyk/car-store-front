@@ -6,7 +6,6 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { AngularMaterialModule } from '../shared/angular-material.module';
-import { CurrencyPipe } from '../shared/currency.pipe';
 import { PhonePipe } from '../shared/phone.pipe';
 import { FiltersComponent } from './filters/filters.component';
 import { FooterComponent } from './footer/footer.component';
@@ -23,7 +22,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PostsComponent,
     HomeComponent,
     ViewPostComponent,
-    CurrencyPipe,
     PhonePipe,
     FooterComponent,
     ContactComponent

@@ -1,19 +1,20 @@
 <div class="h-full box-border">
-  <div class="z-10 teste w-4/5 h-fit bg-white m-auto ">
+  <div class="z-10 teste w-4/5 h-fit bg-white m-auto header">
     <app-header class=""></app-header>
   </div>
-  <div class="m-auto pt-2">
+  <div class="m-auto pt-2 ">
 
-    <div *ngIf="!loading; else load" class="flex justify-center">
-      <mat-card class="example-card post mr-2 ml-2 ">
+    <div *ngIf="!loading; else load" class="flex justify-center view-post">
+      <mat-card class="example-card post mr-2 ml-2 image">
         <ngx-slick-carousel class="slick" #slickModal="slick-carousel" [config]="slideConfig">
           <div ngxSlickItem *ngFor="let image of vehicle?.images">
-            <img class="object-cover" [src]="'http://localhost:8000'+image.url" width="100%">
+            <img class="object-cover" [src]="imagePath+image.url" width="100%">
           </div>
         </ngx-slick-carousel>
       </mat-card>
+
       <div class="w-96">
-        <mat-card class="example-card w-full mr-2 ml-2 p-2">
+        <mat-card class="example-card w-full mr-2 ml-2 p-2 infos">
           <h5 class="italic font-semibold">Modelo</h5>
           <h5>{{vehicle?.brand?.brand}} {{vehicle?.model}}</h5>
           <h5>Ano: {{vehicle?.year}}</h5>
@@ -31,19 +32,19 @@
           </div>
 
           <div class="mt-2 bg-slate-300 fit rounded-sm p-1 w-fit my-1">
-            <h5 class="font-semibold text-xl">{{vehicle?.price | priceFormat}} </h5>
+            <h5 class="font-semibold text-xl">{{vehicle?.price | currency: 'BRL'}} </h5>
           </div>
         </mat-card>
-        <mat-card class="example-card w-full mr-2 ml-2 p-2 mt-2">
+        <mat-card class="example-card w-full mr-2 ml-2 p-2 mt-2 infos">
           <h5 class="italic font-semibold">Contatos</h5>
           <div *ngFor="let contact of contacts">
             <li class="flex items-center mb-1">
               <span>{{contact.name}} - </span>
-              <a target="_blank" class="cursor-pointer ml-2 mr-2"
+              <a target="_blank" class="cursor-pointer ml-2 mr-2 flex"
                 href="https://wa.me/{{contact.phone}}?text=Olá%20{{contact.name}}">
                 {{contact.phone | phoneFormat}}
+                <img class="ml-2 w-6" src="../../../assets/icons/whatsapp-icon-seeklogo.com.svg" alt="Icone Whatsapp">
               </a>
-              <img class="w-6" src="../../../assets/icons/whatsapp-icon-seeklogo.com.svg" alt="Icone Whatsapp">
             </li>
           </div>
         </mat-card>

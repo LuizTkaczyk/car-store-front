@@ -5,6 +5,7 @@ import { ConnectionService } from 'src/app/shared/connection.service';
 import { Routes } from 'src/app/shared/constansts';
 import { fadeIn, loadingAnimation } from 'src/app/shared/fade-in.animation';
 import { Subscription, debounceTime, take } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-posts',
@@ -24,6 +25,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   imageLoading = true;
   withFilter: boolean = false;
   filterSubscription: Subscription = new Subscription();
+  imagePath = environment.imagePath;
 
   constructor(private service: ConnectionService, private changes: ChangesService, private spinner: NgxSpinnerService) { }
 

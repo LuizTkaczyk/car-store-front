@@ -1,4 +1,30 @@
-.mat-list-item-selected {
-    background-color: #e0e0e0;  /* Altere para a cor desejada quando o item estiver selecionado */
-    border-radius: 10px;
+.mat-drawer-content {
+  overflow: hidden !important;
+}
+
+.mat-toolbar.mat-primary {
+  --mat-toolbar-container-background-color: #F5F5F5;
+  --mat-toolbar-container-text-color: black;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+.active {
+  background-color: #e0e0e0; /* Cor de fundo quando selecionado */
+  color: #fff; /* Cor do texto quando selecionado */
+}
+
+.mdc-list {
+  margin: 0;
+  padding: 0px 0;
+  list-style-type: none;
+}
+
+@media screen and (max-width: 600px) {
+  aside {
+    display: none;
   }
+}
+
