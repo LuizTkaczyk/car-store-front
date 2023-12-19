@@ -1,13 +1,13 @@
-<mat-toolbar class="tollbar rounded-md flex flex-wrap justify-center ">
+<mat-toolbar class="tollbar rounded-md flex flex-wrap justify-center">
 
-  <div class="flex items-center text-lg mr-8">
+  <div class="flex items-center text-lg mr-8 search">
     <div class="mr-1">
       <p class="font-light-italic">Buscar</p>
     </div>
     <input matInput [formControl]="inputFilter" class="w-36 font-light-italic">
   </div>
 
-  <div class="flex items-center text-lg mr-12">
+  <div class="flex items-center text-lg mr-12 category">
     <div class="mr-1">
       <p class="font-light-italic">Categoria</p>
     </div>
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <div class="flex items-center mr-12">
+  <div class="flex items-center mr-12 brand">
     <div class="mr-1 text-lg">
       <p class="font-light-italic">Marca</p>
     </div>
@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <div class="flex mr-12 items-center text-lg">
+  <div class="flex mr-12 items-center text-lg year">
     <p class="mr-3 font-light-italic">Ano</p>
     <div class="flex text-lg items-center">
       <span class="font-light-italic mr-1">{{yearTo.value}}</span>
@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div class="flex items-center text-lg">
+  <div class="flex items-center text-lg price">
     <p class="mr-3 font-light-italic">Valor</p>
     <div class="flex text-lg items-center">
       <span class="font-light-italic mr-1">{{priceFrom.value}}</span>

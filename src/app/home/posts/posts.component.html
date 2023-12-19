@@ -11,13 +11,13 @@
       <mat-card-content class="text-center">
         <p>{{post.brand.brand}} {{post.model}} {{post.year}}</p>
         <p>{{post.description}}</p>
-        <p>{{post.price | priceFormat}}</p>
+        <p>{{post.price | currency: 'BRL'}}</p>
       </mat-card-content>
     </a>
   </mat-card>
 
   <div>
-    <p *ngIf="posts.length == 0" class="text-center">Nenhum veículo encontrado</p>
+    <p *ngIf="posts.length == 0" class="text-center mt-8">Nenhum veículo encontrado</p>
     <ngx-spinner bdColor="rgba(0, 0, 0, 0.1)" size="default" type="line-scale" [fullScreen]="true"
       [name]="'primary'"></ngx-spinner>
   </div>

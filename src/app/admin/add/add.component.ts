@@ -373,8 +373,7 @@ export class AddComponent implements OnInit {
   }
 
   public removeOrClear(i: number, form: string) {
-    const option = this.form.get(form) as FormArray
-    console.log(option)
+    const option = this.form.get(form) as FormArray;
     if (option.length > 1) {
       option.removeAt(i)
     } else {

@@ -1,11 +1,45 @@
 .my-slider {
-    --mdc-slider-handle-height: 15px;
-    --mdc-slider-handle-width: 15px;
-    --mat-mdc-slider-hover-ripple-color: unset;
-    --mat-mdc-slider-focus-ripple-color : unset;
+  --mdc-slider-handle-height: 15px;
+  --mdc-slider-handle-width: 15px;
+  --mat-mdc-slider-hover-ripple-color: unset;
+  --mat-mdc-slider-focus-ripple-color: unset;
 }
 
-.tollbar{
+.tollbar {
   height: fit-content;
 }
 
+.mat-toolbar .sidenav {
+  background: #eceaea !important;
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+
+  .tollbar {
+    justify-content: space-between;
+  }
+
+  .search {
+    margin: 5px 0;
+    display: none;
+  }
+
+  .category {
+    display: block;
+    margin: 0 2px;
+  }
+
+  .brand {
+    display: block;
+    margin: 0 2px;
+  }
+
+  .year {
+    display: none;
+  }
+
+  .price {
+    display: none;
+  }
+}

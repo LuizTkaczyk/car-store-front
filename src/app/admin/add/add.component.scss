@@ -13,3 +13,8 @@ td{
 .font-b{
   font-family: "TitilliumWeb-semibold", sans-serif;
 }
+@media screen and (max-width: 600px) {
+  mat-card{
+    width: 95%;
+  }
+}

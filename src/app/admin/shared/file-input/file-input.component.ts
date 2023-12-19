@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-file-input',
@@ -15,6 +16,7 @@ export class FileInputComponent implements OnChanges {
   filesToDel : any[] = [];
   selectedFile: File | null = null;
   imagePreview : any;
+  imagePath = environment.imagePath;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (

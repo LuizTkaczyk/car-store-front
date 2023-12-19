@@ -1,15 +1,15 @@
 <div class="flex flex-col h-full box-border">
-  <div class="z-10 w-4/5 h-fit bg-white my-0 m-auto">
+  <div class="z-10 w-4/5 h-fit bg-white my-0 m-auto header">
     <app-header class=""></app-header>
   </div>
-  <div *ngIf="info" class="m-auto">
-    <p class="text-9xl mb-3">{{info.company_name}}</p>
-    <p class="text-3xl text-center">Endereço</p>
-    <p class="text-4xl text-center mb-3">{{info.address}} - Nº{{info.address_number}}</p>
-    <p class="text-3xl text-center">Cidade</p>
-    <p class="text-4xl text-center mb-3">{{info.city}} - {{info.state}}</p>
-    <p class="text-3xl text-center">Telefone</p>
-    <p class="text-4xl text-center">{{info.company_phone | phoneFormat}}</p>
+  <div *ngIf="info" class="m-auto address-infos" >
+    <p class="text-9xl text-center mb-3 company-name">{{info.company_name}}</p>
+    <p class="text-3xl text-center title">Endereço</p>
+    <p class="text-4xl text-center mb-3 info">{{info.address}} - Nº{{info.address_number}}</p>
+    <p class="text-3xl text-center title">Cidade</p>
+    <p class="text-4xl text-center mb-3 info">{{info.city}} - {{info.state}}</p>
+    <p class="text-3xl text-center title">Telefone</p>
+    <p class="text-4xl text-center info">{{info.company_phone | phoneFormat}}</p>
   </div>
 
   <div>

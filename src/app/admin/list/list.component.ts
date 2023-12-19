@@ -8,6 +8,9 @@ import { Vehicle } from './../model/vehicle.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, switchMap } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { ChangesService } from 'src/app/shared/changes.service';
+import { Router } from '@angular/router';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-list',
@@ -31,8 +34,13 @@ export class ListComponent implements OnInit {
   showFirstLastButtons = true;
 
   inputFilter = new FormControl<string>('');
+  mobileQuery: MediaQueryList;
+  editButtons: boolean = true;
 
-  constructor(public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService) {
+  constructor(public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService, private changes: ChangesService,private router: Router,private media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.editButtons = !this.mobileQuery.matches;
+    console.log(this.editButtons)
   }
 
   ngOnInit(): void {
@@ -87,14 +95,13 @@ export class ListComponent implements OnInit {
   }
 
   applyFilter() {
-    this.loading = true;
-    this.inputFilter.valueChanges.pipe(
-      debounceTime(800),
-      switchMap(value => this.connectionService.getFilteredVehicles(Routes.VEHICLES, { name: value }))).subscribe(response => {
+    this.changes.searchVehicle.subscribe(data => {
+      this.connectionService.getFilteredVehicles(Routes.VEHICLES, { name: data }).subscribe(response => {
         this.vehicles = response.data;
         this.totalItems = response.total;
         this.loading = false;
-      });
+      })
+    })
   }
 }
 

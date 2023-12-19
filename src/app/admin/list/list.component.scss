@@ -45,3 +45,28 @@ td{
 .mat-mdc-text-field-wrapper{
   height: 50px !important;
 }
+
+.mat-mdc-paginator-range-label {
+  margin: 0 !important;
+}
+
+.mdc-button{
+  min-width: min-content !important;
+}
+
+@media screen and (max-width: 600px) {
+  .example-container{
+    padding: 0;
+  }
+  aside {
+    display: none;
+  }
+
+  paginator-container{
+    width: 100%;
+  }
+
+  .paginator-container{
+    position: absolute;
+  }
+}
