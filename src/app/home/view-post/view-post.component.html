@@ -8,7 +8,7 @@
       <mat-card class="example-card post mr-2 ml-2 image">
         <ngx-slick-carousel class="slick" #slickModal="slick-carousel" [config]="slideConfig">
           <div ngxSlickItem *ngFor="let image of vehicle?.images">
-            <img class="object-cover" [src]="imagePath+image.url" width="100%">
+            <img class="object-contain images" [src]="imagePath+image.url">
           </div>
         </ngx-slick-carousel>
       </mat-card>

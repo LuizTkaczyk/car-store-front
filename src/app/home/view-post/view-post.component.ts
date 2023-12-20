@@ -16,7 +16,7 @@ export class ViewPostComponent implements OnInit {
   postId: any = null;
   vehicle: any = null;
   contacts: any = null;
-  slideConfig = {"slidesToShow": 1, "slidesToScroll": 1, "dots": true, "autoplay": true, "autoplaySpeed": 3000, "arrows": true};
+  slideConfig = {"slidesToShow": 1, "slidesToScroll": 1, "dots": true, "autoplay": false, "autoplaySpeed": 3000, "arrows": true};
   loading = false;
   imagePath = environment.imagePath;
 
