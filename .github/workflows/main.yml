@@ -3,7 +3,7 @@ name: Deploy Angular App to HostGator
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
