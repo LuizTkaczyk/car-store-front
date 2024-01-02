@@ -17,6 +17,11 @@
     font-size: 31px;
  }
 
+ .images{
+   width: 800px;
+   height: 600px;
+ }
+
  @media screen and (max-width: 600px) {
   .header {
     width: 100%;
@@ -35,6 +40,10 @@
     margin: 0!important;
     padding: 5px;
     height: fit-content;
+  }
+
+  .images{
+    height:300px;
   }
 
   .infos{
