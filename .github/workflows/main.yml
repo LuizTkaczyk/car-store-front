@@ -29,6 +29,6 @@ jobs:
 
       - name: Deploy to HostGator
         run: |
-          scp -r dist/* luizan96@162.241.203.10:/home2/luizan96/public_html
+          scp -r dist/* luizan96@162.241.203.10:/store.luizantonio.dev.br
         env:
           HOSTGATOR_SSH_KEY: ${{ secrets.HOSTGATOR_SSH_KEY }}
