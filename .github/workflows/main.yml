@@ -34,4 +34,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/car-store-front/
-          server-dir: /home2/luizan96/store.luizantonio.dev.br
+          server-dir: /home2/luizan96/store.luizantonio.dev.br/
