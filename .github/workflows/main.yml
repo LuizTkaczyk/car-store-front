@@ -24,9 +24,6 @@ jobs:
       - name: Install Dependencies
         run: npm install --force
 
-      - name: Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
-
       - name: Build Angular App
         run: ng build
 
@@ -36,5 +33,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist/car-store-front
+          local-dir: dist/
           server-dir: /home2/luizan96/store.luizantonio.dev.br/luizan96
