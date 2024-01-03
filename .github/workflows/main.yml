@@ -32,6 +32,6 @@ jobs:
 
       - name: Deploy to HostGator
         run: |
-         lftp -e "mirror -R -e -x .git -x .github -x node_modules -x .gitignore -x .gitattributes -x README.md -x angular.json -x .editorconfig -x .browserslistrc -x karma.conf.js -x tsconfig.json -x tsconfig.app.json -x tsconfig.spec.json -x e2e -x src -- $GITHUB_WORKSPACE/car-store/dist/* /home2/luizan96/store.luizantonio.dev.br" -u luizan96,$HOSTGATOR_FTP_PASSWORD 162.241.203.10
+         lftp -e "mirror -R -e -x .git -x .github -x node_modules -x .gitignore -x .gitattributes -x README.md -x angular.json -x .editorconfig -x .browserslistrc -x karma.conf.js -x tsconfig.json -x tsconfig.app.json -x tsconfig.spec.json -x e2e -x src -- $GITHUB_WORKSPACE/dist/* /home2/luizan96/store.luizantonio.dev.br" -u luizan96,$HOSTGATOR_FTP_PASSWORD 162.241.203.10
         env:
           HOSTGATOR_FTP_PASSWORD: ${{ secrets.HOSTGATOR_FTP_PASSWORD }}
