@@ -17,8 +17,8 @@
       </mat-card-content>
     </form>
     <mat-card-actions class="flex justify-center ">
-      <button mat-raised-button color="primary" (click)="login()" class="mr-4">Login</button>
-      <button mat-raised-button [routerLink]="['/']">Voltar</button>
+      <button mat-raised-button [routerLink]="['/']" class="mr-4">Voltar</button>
+      <button mat-raised-button color="primary" (click)="login()" >Login</button>
     </mat-card-actions>
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
   </mat-card>
