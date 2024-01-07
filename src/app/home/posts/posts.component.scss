@@ -11,3 +11,7 @@
 .slick-prev:before, .slick-next:before {
    font-size: 31px;
 }
+
+app-posts .slick-dotted.slick-slider {
+  width: 20rem;
+}
