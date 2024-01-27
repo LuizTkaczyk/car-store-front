@@ -16,6 +16,7 @@ import { PanelComponent } from './panel/panel.component';
 import { FileInputComponent } from './shared/file-input/file-input.component';
 import { LogoInputComponent } from './shared/logo-input/logo-input.component';
 import { ModalComponent } from './shared/modal/modal.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ModalComponent } from './shared/modal/modal.component';
     NgxMaskDirective,
     NgxMaskPipe,
     BrowserAnimationsModule,
+    HeaderComponent,
     ToastrModule.forRoot({
       maxOpened: 1
     })
