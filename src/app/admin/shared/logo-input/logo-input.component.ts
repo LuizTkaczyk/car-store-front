@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
@@ -12,6 +13,8 @@ export class LogoInputComponent implements OnChanges {
   file: any = undefined;
   showLogo: Boolean = true;
   selectedFile: File | null = null;
+  imagePath = environment.imagePath;
+  inputNewLogo : boolean = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.file = changes['inputLogo'].currentValue;
@@ -24,6 +27,7 @@ export class LogoInputComponent implements OnChanges {
   }
 
   addFiles(event: Event): void {
+    this.inputNewLogo = true;
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files?.length) {
       this.selectedFile = inputElement.files[0];
