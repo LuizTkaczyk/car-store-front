@@ -99,9 +99,7 @@ export class EditComponent implements OnInit {
                 optionalFormArray.push(this.setFormGroup(optional));
               });
             }
-            
             this.files = this.form.get('images').value;
-            console.log(this.form);
             this.changes.markForCheck();
           })
 
