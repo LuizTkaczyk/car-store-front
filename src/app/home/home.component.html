@@ -1,16 +1,32 @@
 <div class="flex flex-col box-border mb-1 w-4/5 m-auto home">
-  <div class="z-10 teste w-4/5 h-fit fixed bg-white header">
-    <app-header class=""></app-header>
-    <app-filters class=""></app-filters>
+  <div class="example-container m-auto w-4/5">
+    <div class="z-10 w-4/5 h-fit fixed header">
+      <app-header class=""></app-header>
+    </div>
+    <mat-toolbar color="primary" class="example-toolbar">
+      <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+      <p class="example-app-name font-light-italic">Buscar</p>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="example-sidenav-container">
+      <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" fixedTopGap="56">
+        <mat-nav-list>
+          <app-filters class=""></app-filters>
+        </mat-nav-list>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <main class="w-full rounded-md h-full main-panel">
+          <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+          [infiniteScrollContainer]="selector" [fromRoot]="true" (scrolled)="onScroll()">
+            <router-outlet></router-outlet>
+          </div>
+        </main>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   </div>
-  <div class="flex h-full flex-col mt-36 w-4/5 m-auto mb-20">
-    <main class="w-full rounded-md h-full main-panel">
-      <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-        [infiniteScrollContainer]="container?.nativeElement" [fromRoot]="true" (scrolled)="onScroll()">
-        <router-outlet></router-outlet>
-      </div>
-    </main>
-  </div>
+
+
   <div class="fixed w-4/5 z-10 bottom-0 footer">
     <app-footer></app-footer>
   </div>

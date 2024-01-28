@@ -1,11 +1,53 @@
-@media screen and (max-width: 600px) {
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 
-  .home {
+.main-panel {
+  overflow-y: auto;
+}
+
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+h1.example-app-name {
+  margin-left: 8px;
+}
+
+.example-toolbar{
+  height: 40px;
+  background-color: #F5F5F5;
+  color: black;
+}
+
+.example-toolbar{
+  margin-top: 125px;
+}
+
+
+@media screen and (max-width:600px) {
+
+  .home{
     width: 100%;
+  }
 
-    .header {
-      width: 100%;
-    }
+  .example-container {
+    width: 100%;
+    margin-top: 0;
+
+  }
+  .header {
+    width: 100%;
+  }
+  .main-panel {
+    overflow-y: auto;
   }
 
   .footer {
