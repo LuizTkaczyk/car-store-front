@@ -239,7 +239,6 @@ export class AddComponent implements OnInit {
   }
 
   getInformation() {
-
     this.connectionService.getById(Routes.INFORMATION, '1').subscribe(data => {
       this.information = data;
       this.files = data.logo;
@@ -428,9 +427,9 @@ export class AddComponent implements OnInit {
   }
 
   save() {
+    this.loading = true;
     switch (this.activeRoute) {
       case 'veiculos':
-        this.loading = true;
         this.form.get('images').setValue(this.files);
         this.connectionService.post(Routes.VEHICLES, this.form.value).subscribe(data => {
           this.form.reset();
@@ -439,33 +438,40 @@ export class AddComponent implements OnInit {
           this.messageService.show('Veículo cadastrado com sucesso', 'success');
 
         }, error => {
+          this.loading = false;
           this.messageService.show('Erro ao cadastrar veículo', 'error');
         })
         break;
       case 'informacoes':
         this.form.get('logo').setValue(this.files);
         this.connectionService.post(Routes.INFORMATION, this.form.value).subscribe(data => {
+          this.loading = false;
           this.messageService.show('Inforamções salvas com sucesso', 'success');
         }, error => {
+          this.loading = false;
           this.messageService.show('Erro ao salvar informações', 'error');
         })
         break;
       case 'marcas':
         this.connectionService.post(Routes.BRAND, this.form.value).subscribe(data => {
+          this.loading = false;
           this.form.reset();
           this.getBrands();
           this.messageService.show('Marca cadastrada com sucesso', 'success');
         }, error => {
+          this.loading = false;
           this.messageService.show('Erro ao cadastrar marca', 'error');
         })
         break;
 
       case 'categorias':
         this.connectionService.post(Routes.CATEGORY, this.form.value).subscribe(data => {
+          this.loading = false;
           this.form.reset();
           this.getCategories();
           this.messageService.show('Categoria cadastrada com sucesso', 'success');
         }, error => {
+          this.loading = false;
           this.messageService.show('Erro ao cadastrar categoria', 'error');
         })
         break;
