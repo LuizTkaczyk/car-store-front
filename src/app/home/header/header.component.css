@@ -2,8 +2,18 @@
   display: block;
 }
 
+.header{
+  min-height: 70px;
+  max-height: 70px;
+}
+
 @media screen and (max-width: 600px) {
   .header {
     width: 100%;
   }
+}
+
+
+.image{
+  max-width: 180px;
 }
