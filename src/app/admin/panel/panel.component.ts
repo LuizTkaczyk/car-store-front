@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, filter, switchMap } from 'rxjs';
 import { ChangesService } from 'src/app/shared/changes.service';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-panel',
@@ -26,7 +27,7 @@ export class PanelComponent implements OnInit {
   showSearch: Boolean = true;
   isSidenavOpened = true;
 
-  constructor(private router: Router, public dialog: MatDialog, private connectionService: ConnectionService, private media: MediaMatcher, private changeDetectorRef: ChangeDetectorRef, private changes: ChangesService, private route: ActivatedRoute) {
+  constructor(private router: Router, public dialog: MatDialog, private connectionService: ConnectionService, private media: MediaMatcher, private changeDetectorRef: ChangeDetectorRef, private changes: ChangesService, private route: ActivatedRoute,private titleService: Title) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.isSidenavOpened = !this.mobileQuery.matches;
 
@@ -34,6 +35,9 @@ export class PanelComponent implements OnInit {
   ngOnInit(): void {
     this.verifyRoute();
     this.applyFilter();
+    this.connectionService.getJsonValues().subscribe((value) => {
+      this.titleService.setTitle(`${value.title} - Painel administrativo`);
+    })
   }
 
   verifyRoute() {
