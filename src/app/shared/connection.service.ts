@@ -54,4 +54,8 @@ export class ConnectionService {
   refreshToken(route:string): Observable<any> {
     return this.http.post<any>(this.apiUrl + route,{});
   }
+
+  getJsonValues(): Observable<any> {
+    return this.http.get<any>('assets/infos/info.json');
+  }
 }
