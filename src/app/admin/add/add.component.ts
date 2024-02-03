@@ -446,7 +446,7 @@ export class AddComponent implements OnInit {
         this.form.get('logo').setValue(this.files);
         this.connectionService.post(Routes.INFORMATION, this.form.value).subscribe(data => {
           this.loading = false;
-          this.messageService.show('Inforamções salvas com sucesso', 'success');
+          this.messageService.show('Informações salvas com sucesso', 'success');
         }, error => {
           this.loading = false;
           this.messageService.show('Erro ao salvar informações', 'error');
