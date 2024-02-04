@@ -239,7 +239,7 @@ export class AddComponent implements OnInit {
   }
 
   getInformation() {
-    this.connectionService.getById(Routes.INFORMATION, '1').subscribe(data => {
+    this.connectionService.get(Routes.GET_INFORMATION).subscribe(data => {
       this.information = data;
       this.files = data.logo;
       this.form.reset(data);
@@ -444,7 +444,7 @@ export class AddComponent implements OnInit {
         break;
       case 'informacoes':
         this.form.get('logo').setValue(this.files);
-        this.connectionService.post(Routes.INFORMATION, this.form.value).subscribe(data => {
+        this.connectionService.post(Routes.SAVE_INFORMATION, this.form.value).subscribe(data => {
           this.loading = false;
           this.messageService.show('Informações salvas com sucesso', 'success');
         }, error => {

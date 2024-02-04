@@ -42,3 +42,6 @@ package-lock.json
 .DS_Store
 Thumbs.db
 package-lock.json
+
+/assets/infos/info.json
+/assets/logos/logo.png

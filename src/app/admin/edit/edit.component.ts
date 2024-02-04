@@ -108,7 +108,7 @@ export class EditComponent implements OnInit {
           this.form = this.formBuilder.group({
             contact: [null, [Validators.required, Validators.maxLength(15)]],
           });
-          this.connectionService.getById(Routes.INFORMATION, this.id).subscribe(data => {
+          this.connectionService.get(Routes.GET_INFORMATION).subscribe(data => {
             this.form.reset(data);
             this.files = this.form.get('logo').value;
             this.changes.markForCheck();
