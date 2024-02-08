@@ -45,3 +45,5 @@ package-lock.json
 
 /src/assets/infos
 /src/assets/logos
+src/assets/logo/logo.png
+src/assets/infos/info.json
