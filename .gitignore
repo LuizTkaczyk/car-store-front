@@ -43,5 +43,5 @@ package-lock.json
 Thumbs.db
 package-lock.json
 
-/src/assets/infos
-/src/assets/logos
+src/assets/infos/info.json
+src/assets/logo/logo.png
