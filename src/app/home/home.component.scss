@@ -54,4 +54,24 @@ h1.example-app-name {
     width: 100%;
   }
 
+  .header-hidden {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-out;
+  }
+
+  .header-visible {
+    transition: transform 0.3s ease-in;
+  }
+
+  .example-toolbar-hidden {
+    margin-top: 0px;
+    transition: margin-top 0.3s ease-out ;
+  }
+
+  .example-toolbar-visible {
+    margin-top: 75px;
+    transition: margin-top 0.3s ease-in;
+  }
+
+
 }

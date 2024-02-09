@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component,OnInit } from '@angular/core';
 import { ChangesService } from '../shared/changes.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Title } from '@angular/platform-browser';
@@ -11,6 +11,7 @@ import { ConnectionService } from '../shared/connection.service';
 })
 export class HomeComponent implements AfterViewInit, OnInit {
   selector: string = ".main-panel";
+  headerHidden = false;
 
   mobileQuery: MediaQueryList;
 
@@ -29,5 +30,13 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   onScroll() {
     this.changes.callPost(true);
+  }
+
+  onScrollHideHeader() {
+    this.headerHidden = true;
+  }
+
+  onScrollUp() {
+      this.headerHidden = false;
   }
 }
