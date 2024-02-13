@@ -6,10 +6,8 @@ import { MessageService } from '../shared/message.service';
 import { ModalComponent } from '../shared/modal/modal.component';
 import { Vehicle } from './../model/vehicle.model';
 import { MatTableDataSource } from '@angular/material/table';
-import { debounceTime, switchMap } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ChangesService } from 'src/app/shared/changes.service';
-import { Router } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
@@ -37,13 +35,12 @@ export class ListComponent implements OnInit {
   mobileQuery: MediaQueryList;
   editButtons: boolean = true;
 
-  constructor(public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService, private changes: ChangesService,private router: Router,private media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.editButtons = !this.mobileQuery.matches;
-    console.log(this.editButtons)
+  constructor(public dialog: MatDialog, private connectionService: ConnectionService, private messageService: MessageService, private changes: ChangesService,private media: MediaMatcher) {
+    this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
   }
 
   ngOnInit(): void {
+    this.editButtons = !this.mobileQuery.matches;
     this.applyFilter();
     this.getVehicles();
   }
