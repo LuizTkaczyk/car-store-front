@@ -11,6 +11,7 @@ export class FileInputComponent implements OnChanges {
   @Output() file = new EventEmitter<Array<any>>();
   @Output() filesToDelete = new EventEmitter<Array<any>>();
   @Input() inputFile : Array<any> = [];
+  @Input() imagesLimit : Boolean = false;
 
   files : any[] = [];
   filesToDel : any[] = [];
@@ -48,7 +49,6 @@ export class FileInputComponent implements OnChanges {
         reader.onload = () => {
           const imagePreview = reader.result;
           this.files.push({file: imagePreview});
-          console.log(this.files)
           this.file.emit(this.files);
         };
         reader.readAsDataURL(selectedFile);
