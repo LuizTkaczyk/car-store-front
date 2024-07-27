@@ -51,7 +51,7 @@
             <mat-label>Valor</mat-label>
             <input matInput formControlName="price" mask="separator.2" thousandSeparator="," />
             <mat-error *ngIf="form.get('price').hasError('required')">O preço é obrigatório</mat-error>
-            <mat-error *ngIf="form.get('price').hasError('priceInvalido')">O preço deve estar entre 0 e
+            <mat-error *ngIf="form.get('price').hasError('invalidPrice')">O preço deve estar entre 0 e
               9.999.999,99</mat-error>
           </mat-form-field>
         </div>
@@ -94,7 +94,12 @@
         </div>
 
         <div class="flex">
-          <app-file-input (file)="getFiles($event)" [inputFile]="files" (filesToDelete)="getFilesToDelete($event)"></app-file-input>
+          <app-file-input
+            [inputFile]="files"
+            [imagesLimit]="imagesLimit"
+            (file)="getFiles($event)"
+            (filesToDelete)="getFilesToDelete($event)"
+          ></app-file-input>
         </div>
 
       </mat-card-content>

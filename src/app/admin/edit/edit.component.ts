@@ -25,6 +25,7 @@ export class EditComponent implements OnInit {
   deleting: Boolean = false;
   loadingDelete: Boolean = false;
   loadingSave: Boolean = false;
+  imagesLimit: Boolean = false;
 
   id: any;
   categories = new Observable<Category[]>();
@@ -81,7 +82,7 @@ export class EditComponent implements OnInit {
             price: [null, [Validators.required, this.validatePrice]],
             description: [null, [Validators.maxLength(150)]],
             optional: this.formBuilder.array([this.createOptionalFormGroup()]),
-            images: null,
+            images: [null, Validators.required],
             imagesToDelete: null,
           });
 
@@ -140,7 +141,7 @@ export class EditComponent implements OnInit {
     const price = control.value;
 
     if (price !== null && (isNaN(price) || price < 0 || price > 9999999.99)) {
-      return { 'priceInvalido': true };
+      return { 'invalidPrice': true };
     }
 
     return null;
@@ -148,6 +149,14 @@ export class EditComponent implements OnInit {
 
   getFiles(event: Array<any>) {
     this.files = event;
+    this.imagesLimit = this.files.length;
+    if(this.files.length > 5){
+      this.imagesLimit = true;
+      this.form.controls['images'].setErrors({ 'maxFilesExceeded': true });
+    }else{
+      this.imagesLimit = false;
+      this.form.controls['images'].setErrors(null);
+    }
   }
 
   getFilesToDelete(event: Array<any>) {
@@ -185,11 +194,12 @@ export class EditComponent implements OnInit {
           this.router.navigate(['/admin/lista']);
           this.loadingSave = false;
         }, error => {
-          this.messageService.show('Erro ao editar veículo', 'error');
+          this.messageService.show(error.error.message, 'error');
           if(error.status == 401){
             this.messageService.show('Não autenticado', 'error');
             this.router.navigate(['/login']);
           }
+          this.loadingSave = false;
         })
         break;
       case 'marca':
