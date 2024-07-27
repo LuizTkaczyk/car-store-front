@@ -8,7 +8,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { AngularMaterialModule } from '../shared/angular-material.module';
 import { PhonePipe } from '../shared/phone.pipe';
 import { FiltersComponent } from './filters/filters.component';
-import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home.component';
 import { PostsComponent } from './posts/posts.component';
@@ -23,7 +22,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     ViewPostComponent,
     PhonePipe,
-    FooterComponent,
     ContactComponent
   ],
   imports: [
