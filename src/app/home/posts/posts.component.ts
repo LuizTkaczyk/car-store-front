@@ -27,7 +27,11 @@ export class PostsComponent implements OnInit, OnDestroy {
   filterSubscription: Subscription = new Subscription();
   imagePath = environment.imagePath;
 
-  constructor(private service: ConnectionService, private changes: ChangesService, private spinner: NgxSpinnerService) { }
+  constructor(
+    private service: ConnectionService,
+    private changes: ChangesService,
+    private spinner: NgxSpinnerService
+  ) { }
 
   ngOnDestroy(): void {
     if (this.filterSubscription) {
@@ -52,7 +56,6 @@ export class PostsComponent implements OnInit, OnDestroy {
         this.posts.push(...data.data);
       } else {
         if (data.current_page === 1) {
-
           this.posts = data.data
         } else if (data.current_page > 1) {
           this.posts.push(...data.data);
@@ -61,8 +64,15 @@ export class PostsComponent implements OnInit, OnDestroy {
       this.spinner.hide('primary');
       this.currentPage = data.current_page;
       this.lastPage = data.last_page;
-    })
 
+      if(this.posts.length > 0 && data.to < data.total) {
+        this.changes.setButton('have-posts');
+      }
+
+      if(data.to == data.total) {
+        this.changes.setButton('no-posts');
+      }
+    })
   }
 
   callPosts() {

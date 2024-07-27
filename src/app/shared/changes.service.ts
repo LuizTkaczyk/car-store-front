@@ -12,6 +12,7 @@ export class ChangesService {
   private changes = new BehaviorSubject<object>({});
   private posts = new BehaviorSubject<Boolean>(false);
   private search = new BehaviorSubject<any>({});
+  private loadButton = new BehaviorSubject<string>('nothing');
 
   changeFilter = this.changes.asObservable();
   callPosts = this.posts.asObservable();
@@ -36,5 +37,13 @@ export class ChangesService {
 
   callSearch(search: any): void {
     this.search.next(search);
+  }
+
+  setButton(value: string) {
+    this.loadButton.next(value);
+  }
+
+  getButton(): BehaviorSubject<any> {
+    return this.loadButton;
   }
 }

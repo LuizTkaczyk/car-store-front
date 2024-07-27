@@ -1,9 +1,11 @@
 <div class="flex flex-col box-border mb-1 w-4/5 m-auto home">
   <div class="example-container m-auto w-4/5">
-    <div class="z-10 w-4/5 h-fit fixed header" [ngClass]="{'header-hidden': headerHidden, 'header-visible': !headerHidden}">
+    <div class="z-10 w-4/5 h-fit fixed header"
+      [ngClass]="{'header-hidden': headerHidden, 'header-visible': !headerHidden}">
       <app-header class=""></app-header>
     </div>
-    <mat-toolbar color="primary" class="example-toolbar"  [ngClass]="{'example-toolbar-hidden': headerHidden, 'example-toolbar-visible': !headerHidden}">
+    <mat-toolbar color="primary" class="example-toolbar"
+      [ngClass]="{'example-toolbar-hidden': headerHidden, 'example-toolbar-visible': !headerHidden}">
       <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
       <p class="example-app-name font-light-italic">Buscar</p>
     </mat-toolbar>
@@ -16,19 +18,18 @@
       </mat-sidenav>
 
       <mat-sidenav-content class="sidenav">
-        <main #scrollContainer class="w-full rounded-md h-full main-panel"  infiniteScroll [infiniteScrollDistance]="8" [infiniteScrollThrottle]="50"
-        [infiniteScrollContainer]="selector" [infiniteScrollUpDistance]="1" [alwaysCallback]="true" [fromRoot]="true" (scrolled)="onScrollHideHeader()" (scrolledUp)="onScrollUp()">
-          <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-          [infiniteScrollContainer]="selector" [fromRoot]="true" (scrolled)="onScroll()">
-            <router-outlet></router-outlet>
+        <main>
+          <router-outlet></router-outlet>
+          <div *ngIf="showLoadButton == 'show'" class="flex justify-center mb-3">
+            <button mat-raised-button color="primary" (click)="loadCars()">Carregar mais</button>
+          </div>
+
+          <div *ngIf="showLoadButton == 'end-show'" class="flex justify-center mb-3">
+            <span>Por enquanto é isso...</span>
           </div>
         </main>
+
       </mat-sidenav-content>
     </mat-sidenav-container>
-  </div>
-
-
-  <div class="fixed w-4/5 z-10 bottom-0 footer">
-    <app-footer></app-footer>
   </div>
 </div>

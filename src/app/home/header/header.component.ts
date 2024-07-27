@@ -12,4 +12,11 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./header.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent { }
+export class HeaderComponent {
+  openLogin(){
+    const token = localStorage.getItem('token');
+    const route = token ? '/admin/lista' : '/login';
+
+    window.open(route, '_blank');
+  }
+ }
